@@ -1,0 +1,196 @@
+# Webalizer V2.23-08 Incremental Data - 12/20/2018 22:05:33
+2018 12 20 22 5 33
+841 725 11 13 5 5 6102655 338 17 0
+1 18 169 17 20
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+495 411 3658580 11 145 12
+301 273 2235281 2 161 3
+1 1 937 1 1 1
+44 40 207857 1 31 1
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+25 18 107188 13
+133 117 1641441 29
+62 46 496159 20
+130 102 1100762 40
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+169 151 1216889 40
+35 25 184328 18
+2 2 13200 1
+0 0 0 0
+1 1 937 1
+166 155 910488 103
+118 108 431263 73
+0 0 0 0
+0
+0
+0
+725
+0
+0
+0
+0
+0
+8
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+83
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+25
+0
+0
+0
+0
+0
+# -urls- 
+/public/fontawesome/webfonts/fa-solid-900.woff2
+0 13 0 1027936 0 0
+/public/css/style.css
+0 75 0 10500 0 0
+/public/fontawesome/css/all.css
+0 15 0 183945 0 0
+/public/js/bootstrap.min.js
+0 72 0 707976 0 0
+/public/favico.png
+1 14 0 90546 0 0
+/home/vocabulary
+0 161 0 99074 0 7
+/public/js/jquery-3.3.1.min.js
+0 72 0 2182104 0 0
+/public/css/toast.min.css
+0 48 0 118272 0 0
+/public/css/bootstrap.min.css
+0 75 0 1480800 0 0
+/home
+0 1 0 684 0 0
+/
+0 92 0 69990 16 2
+/home/add_vocabulary
+0 49 0 1561 0 0
+/public/js/toast.min.js
+0 46 0 82340 0 0
+# End Of Table - urls
+# -sites- (monthly)
+66.220.149.20
+0 1 1 9833 0 0
+-
+171.248.164.200
+0 287 266 1355888 7 1545343533
+/home/vocabulary
+66.220.149.9
+0 1 1 809 1 1545066014
+/
+66.220.149.11
+0 1 1 809 1 1545066014
+/
+42.112.91.242
+0 13 13 68993 1 1545066121
+/home/add_vocabulary
+static.vnpt.vn
+0 533 446 4631799 4 1545126795
+/home/vocabulary
+66.220.149.14
+0 1 1 1790 0 0
+-
+66.220.149.3
+0 1 1 30307 0 0
+-
+173.252.127.4
+0 1 1 809 1 1545066013
+/
+66.220.149.13
+0 1 1 809 1 1545066014
+/
+66.220.149.41
+0 1 1 809 1 1545066013
+/
+# End Of Table - sites (monthly)
+# -sites- (daily)
+171.248.164.200
+0 44 40 207857 1 1545343533
+/home/vocabulary
+# End Of Table - sites (daily)
+# -referrers- 
+- (Direct Request)
+0 178
+http://m.facebook.com
+0 3
+https://l.facebook.com/
+0 2
+http://english.sega-group.com/
+0 646
+http://english.sega-group.com/public/fontawesome/css/all.css
+0 12
+# End Of Table - referrers
+# -agents- 
+Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) coc_coc_browser/75.4.124 Chrome/69.4.3497.124 Saf
+0 485
+Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16B92 [FBAN/MessengerF
+0 13
+facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)
+0 8
+Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) coc_coc_browser/76.0.114 Chrome/70.0.3538.114 Saf
+0 287
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.1
+0 48
+# End Of Table - agents
+# -search strings- 
+# End Of Table - search strings
+# -usernames- 
+# End Of Table - usernames

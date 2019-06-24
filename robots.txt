@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /readme.html
+Disallow: /license.txt
+Sitemap: http://game-crack.tk/sitemap.xml
