@@ -17,6 +17,16 @@
                     <i class="fas fa-address-book fa-2x"></i>
                 </a>
             </li>
+            <li data-toggle="tooltip" title="Lession" data-placement="right">
+                <a data-href="vocabulary" href="javascript:void(0)">
+                    <i class="fab fa-amilia fa-2x"></i>
+                </a>
+            </li>
+            <li data-toggle="tooltip" title="Test" data-placement="right">
+                <a data-href="category" class="" href="javascript:void(0)">
+                    <i class="fab fa-adn fa-2x"></i>
+                </a>
+            </li>
         </ul>
     </div>
     <div class="body-right">
