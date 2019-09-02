@@ -11,26 +11,54 @@ class Table extends CI_Controller
 
     function index(){
         $it['href'] = $this->input->get('href');
+        $limit = $this->input->get('length');
+        $start = $this->input->get('start');
         switch ($it['href']){
             case 'category' :
-                $data=$this->Model->getAllCategoryTable();
+                $data=$this->Model->getAllCategoryTable($limit,$start);
+                $total = $this->Model->getTotal('category');
                 break;
             case 'vocabulary' :
-                $data=$this->Model->getAllVocalbularyTable();
+                $orderBy = "id DESC";
+                $condition = '';
+                if($this->input->get('order')[0]['column'] == 1) $orderBy = "e_name ".$this->input->get('order')[0]['dir'];              
+                elseif($this->input->get('order')[0]['column'] == 0) $orderBy = "id ".$this->input->get('order')[0]['dir'];
+                if(!empty($this->input->get('search')['value'])){
+                    $condition = "`e_name` like '%".$this->input->get('search')['value']."%'";                    
+                }
+                $data=$this->Model->getAllVocalbularyTable($limit,$start,$orderBy,$condition);
+                $total = $this->Model->getTotal('vocabulary');
                 break;
         }
         if(empty($data)){
             $table = [];
         }else{
-            foreach ($data as $val){
-                $table[] = array_values($val);
+            switch ($it['href']){
+                case 'category' :
+                    foreach ($data as $val){
+                        $table[] = $val; 
+                    }
+                    break;
+                case 'vocabulary' :
+                    $categorys = $this->Model->getAllCategoryTable();
+                    $category = [];
+                    foreach($categorys as $cate){
+                        $category[$cate['id']] = $cate['e_name'];
+                    }
+                    
+                    foreach ($data as $val){
+                        $val['category'] = $category[$val['category']];
+                        $val['action'] ="<a href='".base_url()."edit/".$val['id']."'>Edit</a>";
+                        $table[] = $val;        
+                    }
+                    break;
             }
-        }
 
+        }
         $it['table'] = array(
-            "draw" => 1,
-            "recordsTotal" => 2,
-            "recordsFiltered" => 2,
+            "draw" => false,
+            "recordsTotal" => $total,
+            "recordsFiltered" =>$total,
             'data' => $table,
         );
         echo json_encode($it['table']);

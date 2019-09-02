@@ -5,7 +5,8 @@
         </div>
         <div class="col title-right">
             <div>
-                <button  type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Thêm <?=$title?></button>
+                <button  type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Thêm <?=$title?> bằng file Excel</button>
+                <button  type="button" class="btn btn-success" data-toggle="modal" onclick="loadAjaxDefault('add')">Thêm <?=$title?></button>
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -47,8 +48,19 @@
                 "ajax": {
                     "type": "GET",
                     'url': url+'admin/table/index',
-                    'data' : {href : '<?=$href?>'}
-                }
+                    'data' : {href : '<?=$href?>'},
+                    "complete": function(response) {
+                        // $("#draw").text(response["responseJSON"]["draw"]);
+                    }
+                },
+                columns: [
+                    { data: "id" },
+                    { data: "e_name" },
+                    { data: "v_name" },
+                    { data: "spell" },
+                    { data: "category" },
+                    { data: "action" },
+                ],
             });
         });
     </script>

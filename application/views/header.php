@@ -33,6 +33,6 @@
                 </div>
             </li>
         </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+    </div>
 </nav>

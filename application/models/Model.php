@@ -79,10 +79,30 @@ class Model extends CI_Model{
     public function update($table,$data,$condition){
         $this->db->update($table,$data,$condition);
     }
-    public function getAllCategoryTable(){
-        return $this->db->select('id,e_name,v_name')->get('category')->result_array();
+    public function getAllCategoryTable($limit = '',$start = '',$order = "id ASC",$condition = ''){
+        $query = $this->db;
+        if($limit != '' && $start != ''){
+            $query = $query->limit($limit,$start);
+        }
+        if(!empty($condition)){
+            $query = $query->where($condition);
+        }
+        return $query->order_by($order)->select('id,e_name,v_name')->get('category')->result_array();
     }
-    public function getAllVocalbularyTable(){
-        return $this->db->select('id,e_name,v_name')->get('vocabulary')->result_array();
+    public function getAllVocalbularyTable($limit = '',$start = '',$order = "id ASC",$condition = ''){
+        $query = $this->db;
+        if($limit != '' && $start != ''){
+            $query = $query->limit($limit,$start);
+        }
+        if(!empty($condition)){
+            $query = $query->where($condition);
+        }
+        return $query->order_by($order)->select('id,e_name,v_name,spell,category')->get('vocabulary')->result_array();    }
+    public function getTotal($table){
+        return $this->db->get($table)->num_rows();
+    }
+    public function isEmptyVocabulary($vocabulary,$type){
+        if(empty($this->db->get_where('vocabulary',['e_name'=>$vocabulary,'type'=>$type])->first_row())) return true;
+        else return false;
     }
 }

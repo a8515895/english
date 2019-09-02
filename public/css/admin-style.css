@@ -42,3 +42,16 @@
 .body-right .table{
     width: 100%;
 }
+.body-left ul>li{
+    padding: 5px;
+}
+.body-left ul>li.active{
+    background: #fff
+}
+.body-left ul>li.active a{
+    color: #103bff
+}
+.col-form-label {
+    text-align: right;
+    font-size: 13px;
+}

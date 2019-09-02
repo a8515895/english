@@ -7,26 +7,26 @@
 <section class="admin-body-section">
     <div class="body-left">
         <ul>
-            <li data-toggle="tooltip" title="Từ vựng" data-placement="right">
-                <a data-href="vocabulary" href="javascript:void(0)">
+            <li data-href="vocabulary" data-toggle="tooltip" title="Từ vựng" data-placement="right">
+                <a  href="javascript:void(0)">
                     <i class="fas fa-language fa-2x"></i>
                 </a>
             </li>
-            <li data-toggle="tooltip" title="Chủ Đề" data-placement="right">
-                <a data-href="category" class="" href="javascript:void(0)">
+            <li data-href="category" data-toggle="tooltip" title="Chủ đề" data-placement="right">
+                <a  class="" href="javascript:void(0)">
                     <i class="fas fa-address-book fa-2x"></i>
                 </a>
             </li>
-            <li data-toggle="tooltip" title="Lession" data-placement="right">
-                <a data-href="vocabulary" href="javascript:void(0)">
+            <li data-href="exercise" data-toggle="tooltip" title="Bài tập" data-placement="right">
+                <a  href="javascript:void(0)">
                     <i class="fab fa-amilia fa-2x"></i>
                 </a>
             </li>
-            <li data-toggle="tooltip" title="Test" data-placement="right">
-                <a data-href="category" class="" href="javascript:void(0)">
+            <!-- <li data-href="category" data-toggle="tooltip" title="Test" data-placement="right">
+                <a  class="" href="javascript:void(0)">
                     <i class="fab fa-adn fa-2x"></i>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
     <div class="body-right">
