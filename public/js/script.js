@@ -1,11 +1,9 @@
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
-    $('.body-left li a').first().click();
-});
+})
 $(document).on('click','.body-left li',function () {
     let href = $(this).data('href');
     $(".body-left ul li").removeClass('active');
-    console.log($(this))
     $(this).addClass('active');
     loadAjax('list',href)
 })
@@ -14,10 +12,11 @@ function loadAjax(action,href) {
     $.ajax({
         method : 'get',
         type : 'get',
-        url : url+'admin/'+href,
+        url : url+'admin/ajax/'+href,
         data : {action : action},
         success : function (kq) {
             $('.body-right .section-content').html(kq);
+            window.history.pushState(null, null,url+"admin/"+href+"?action="+action);
         }
     }).done(function () {
         $("#loading").hide();
@@ -29,10 +28,11 @@ function loadAjaxDefault(action) {
     $.ajax({
         method : 'get',
         type : 'get',
-        url : url+'admin/'+href,
+        url : url+'admin/ajax/'+href,
         data : {action : action},
         success : function (kq) {
             $('.body-right .section-content').html(kq);
+            window.history.pushState(null, null,url+"admin/"+href+"?action="+action);
         }
     }).done(function () {
         $("#loading").hide();

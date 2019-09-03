@@ -6,7 +6,7 @@ class Home extends CI_Controller{
         $this->load->model('Model');
         $this->load->library('myfunction');
     }
-    function index(){
+    function index(){        
         $this->load->view('load_home');
     }
 }

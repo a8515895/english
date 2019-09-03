@@ -10,7 +10,6 @@ class Admin extends CI_Controller
     }
 
     function index(){
-        $data['title'] = 'Chủ đề';
-        $this->load->view('admin/admin',$data);
+        $this->load->view('admin/admin');
     }
 }

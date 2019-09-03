@@ -9,10 +9,6 @@ class Index extends CI_Controller{
         $this->load->helper('form'); 
     }
     function index(){
-        $data['href'] = 'vocabulary';
-        $this->load->view('admin/admin',$data);
-    }
-    function indexAjax(){
         $action = $this->input->get('action');
         if($action == 'list'){
             $this->loadTable();
@@ -21,15 +17,15 @@ class Index extends CI_Controller{
         }
     }
     function loadTable(){
-        $data['title'] = 'Từ vựng';
-        $data['href'] = 'vocabulary';
-        $data['header'] = array('Từ vựng','Tiếng Anh','Tiếng Việt','Spell','Category','Action');
+        $data['title'] = 'Cụm từ';
+        $data['href'] = 'pharse';
+        $data['header'] = array('Cụm từ','Tiếng Anh','Tiếng Việt');
         $this->load->view('admin/list',$data);
     }
     function loadAdd(){
         $data['title'] = 'Từ vựng';
         $data['categorys'] = $this->Model->getAllCategoryTable();
-        $this->load->view('admin/vocabulary/add',$data);
+        $this->load->view('admin/pharse/add',$data);
     }
     function postExcel(){        
         if(isset($_FILES['fileExcel'])){

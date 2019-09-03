@@ -15,7 +15,7 @@ class Table extends CI_Controller
         $start = $this->input->get('start');
         switch ($it['href']){
             case 'category' :
-                $data=$this->Model->getAllCategoryTable($limit,$start);
+                $data=$this->Model->getAllTable($it['href'],$limit,$start);
                 $total = $this->Model->getTotal('category');
                 break;
             case 'vocabulary' :
@@ -26,9 +26,21 @@ class Table extends CI_Controller
                 if(!empty($this->input->get('search')['value'])){
                     $condition = "`e_name` like '%".$this->input->get('search')['value']."%'";                    
                 }
-                $data=$this->Model->getAllVocalbularyTable($limit,$start,$orderBy,$condition);
-                $total = $this->Model->getTotal('vocabulary');
+                $data=$this->Model->getAllTable($it['href'],$limit,$start,$orderBy,$condition);
+                $total = $this->Model->getTotal($it['href']);
                 break;
+            case 'pharse' :
+                $orderBy = "id DESC";
+                $condition = '';
+                if($this->input->get('order')[0]['column'] == 1) $orderBy = "e_name ".$this->input->get('order')[0]['dir'];              
+                elseif($this->input->get('order')[0]['column'] == 0) $orderBy = "id ".$this->input->get('order')[0]['dir'];
+                if(!empty($this->input->get('search')['value'])){
+                    $condition = "`e_name` like '%".$this->input->get('search')['value']."%'";                    
+                }
+                $data=$this->Model->getAllTable($it['href'],$limit,$start,$orderBy,$condition);
+                $total = $this->Model->getTotal($it['href']);
+                break;
+
         }
         if(empty($data)){
             $table = [];
@@ -39,8 +51,13 @@ class Table extends CI_Controller
                         $table[] = $val; 
                     }
                     break;
+                case 'pharse' :
+                    foreach ($data as $val){
+                        $table[] = $val; 
+                    }
+                    break;
                 case 'vocabulary' :
-                    $categorys = $this->Model->getAllCategoryTable();
+                    $categorys = $this->Model->getAllTable("category");
                     $category = [];
                     foreach($categorys as $cate){
                         $category[$cate['id']] = $cate['e_name'];

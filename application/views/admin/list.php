@@ -50,6 +50,7 @@
                     'url': url+'admin/table/index',
                     'data' : {href : '<?=$href?>'},
                     "complete": function(response) {
+                        
                         // $("#draw").text(response["responseJSON"]["draw"]);
                     }
                 },

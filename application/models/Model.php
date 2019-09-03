@@ -79,7 +79,18 @@ class Model extends CI_Model{
     public function update($table,$data,$condition){
         $this->db->update($table,$data,$condition);
     }
-    public function getAllCategoryTable($limit = '',$start = '',$order = "id ASC",$condition = ''){
+    public function getAllTable($table,$limit = '',$start = '',$order = "id ASC",$condition = ''){
+        switch($table){
+            case "vocabulary":
+                $select = 'id,e_name,v_name,spell,category';
+            break;
+            case "category":
+                $select = 'id,e_name,v_name';
+            break;
+            case "pharse":
+                $select = 'id,e_name,v_name';
+            break;
+        }
         $query = $this->db;
         if($limit != '' && $start != ''){
             $query = $query->limit($limit,$start);
@@ -87,17 +98,8 @@ class Model extends CI_Model{
         if(!empty($condition)){
             $query = $query->where($condition);
         }
-        return $query->order_by($order)->select('id,e_name,v_name')->get('category')->result_array();
+        return $query->order_by($order)->select($select)->get($table)->result_array();
     }
-    public function getAllVocalbularyTable($limit = '',$start = '',$order = "id ASC",$condition = ''){
-        $query = $this->db;
-        if($limit != '' && $start != ''){
-            $query = $query->limit($limit,$start);
-        }
-        if(!empty($condition)){
-            $query = $query->where($condition);
-        }
-        return $query->order_by($order)->select('id,e_name,v_name,spell,category')->get('vocabulary')->result_array();    }
     public function getTotal($table){
         return $this->db->get($table)->num_rows();
     }
