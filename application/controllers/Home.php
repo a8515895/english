@@ -9,4 +9,7 @@ class Home extends CI_Controller{
     function index(){        
         $this->load->view('load_home');
     }
+    function not_found(){
+        echo "404 NOT FOUND";
+    }
 }

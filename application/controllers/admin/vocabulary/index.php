@@ -10,6 +10,7 @@ class Index extends CI_Controller{
     }
     function index(){
         $data['href'] = 'vocabulary';
+        $data['action'] = $this->input->get('action');
         $this->load->view('admin/admin',$data);
     }
     function indexAjax(){
@@ -23,12 +24,12 @@ class Index extends CI_Controller{
     function loadTable(){
         $data['title'] = 'Từ vựng';
         $data['href'] = 'vocabulary';
-        $data['header'] = array('Từ vựng','Tiếng Anh','Tiếng Việt','Spell','Category','Action');
+        $data['header'] = array('id'=>'Từ vựng','e_name'=>'Tiếng Anh','v_name'=>'Tiếng Việt','spell'=>'Spell','category'=>'Category','action'=>'Action');
         $this->load->view('admin/list',$data);
     }
     function loadAdd(){
         $data['title'] = 'Từ vựng';
-        $data['categorys'] = $this->Model->getAllCategoryTable();
+        $data['categorys'] = $this->Model->getAllTable('category');
         $this->load->view('admin/vocabulary/add',$data);
     }
     function postExcel(){        
@@ -49,25 +50,33 @@ class Index extends CI_Controller{
                     for($col = 0;$col < $totalCol; $col++){
                         $i = '';
                         $val = strtolower(trim($sheet->getCellByColumnAndRow($col,$row)->getValue()));
+                        if(empty($val)) continue;
                         switch($col){
                             case 0: $i = 'e_name';                             
                             break;
-                            case 1: $i = 'spell';                             
+                            case 1: $i = 'v_name';                             
                             break;
                             case 2: $i = 'type';                             
                             break;
-                            case 3: $i = 'v_name';                             
+                            case 3: $i = 'spell';                             
                             break;
                             case 4: $i = 'category';                             
                             break;
                         }
                         $arr[$i] = $val;
-                        if(empty($i)) continue;                 
-                    };   
-                    if($this->Model->isEmptyVocabulary($arr['e_name'],$arr['type'])){                        
-                        $this->Model->insert("vocabulary",$arr);
-                        $count++;
-                    }       
+                        if(empty($i)) continue;
+                    };
+                    if(str_word_count($arr['e_name']) == 1){
+                        if($this->Model->isEmptyVocabulary($arr['e_name'],$arr['type'])){                        
+                            $this->Model->insert("vocabulary",$arr);
+                            $count++;
+                        }
+                    }else{
+                        if($this->Model->isEmptyPharse($arr['e_name'])){                        
+                            $this->Model->insert("pharse",$arr);
+                            $count++;
+                        } 
+                    } 
                     $arr = [];
                 }
                 unlink($file);

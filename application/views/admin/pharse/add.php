@@ -29,7 +29,7 @@
         <div class="form-group row">
             <label for="inputPassword3" class="col-sm-4 col-form-label"></label>
             <div class="col-sm-4">
-                <button class="btn btn-success" type="submit">Save Vocabulary</button>
+                <button class="btn btn-success" type="submit">Save Phrase</button>
             </div>
         </div>
     </form>

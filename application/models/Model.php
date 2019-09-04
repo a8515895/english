@@ -107,4 +107,8 @@ class Model extends CI_Model{
         if(empty($this->db->get_where('vocabulary',['e_name'=>$vocabulary,'type'=>$type])->first_row())) return true;
         else return false;
     }
+    public function isEmptyPharse($pharse){
+        if(empty($this->db->get_where('pharse',['e_name'=>$pharse])->first_row())) return true;
+        else return false;
+    }
 }

@@ -50,9 +50,13 @@
             if(empty($href)) echo "let first_href;";
             else echo "let first_href = `$href`;";
         ?>
+        let action = '<?=$action?>';
         if(first_href == "" || first_href == null ) {
             $('.body-left li a').first().click();
         }
-        else $(`.body-left li[data-href='${first_href}']`).click();
+        else {
+            $(`.body-left li[data-href='${first_href}']`).addClass('active');
+            loadAjax(action,first_href)
+        }
     });
 </script>

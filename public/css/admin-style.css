@@ -22,6 +22,7 @@
     float: left;
     padding: 30px;
     position: relative;
+    overflow: hidden;
 }
 #loading{
     position: absolute;
@@ -54,4 +55,19 @@
 .col-form-label {
     text-align: right;
     font-size: 13px;
+}
+.section-content,.exercise-content{
+    height: 100%;
+    width: 100%;
+}
+.section-content .title{
+    height: 50px;
+}
+.section-content .content{
+    height: calc(100% - 50px);
+}
+.section-content .exercise-content .exercise-vocabulary{
+    border-radius: 8px;
+    border : 1px solid #ccc;
+    padding: 10px;
 }

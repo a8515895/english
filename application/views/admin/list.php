@@ -31,7 +31,7 @@
     <hr />
 </div>
 <div class="content">
-    <table id="table-simple" class="table table-striped table-bordered">
+    <table id="table-simple-<?=$href?>" class="table table-striped table-bordered">
         <thead>
         <tr>
             <?php foreach($header as $head){ ?>
@@ -41,26 +41,20 @@
         </thead>
     </table>
     <script type="text/javascript">
+        
         $(document).ready(function(){
-            $('#table-simple').dataTable( {
+            $('#table-simple-<?=$href?>').dataTable( {
                 processing: true,
                 "serverSide": true,
                 "ajax": {
                     "type": "GET",
                     'url': url+'admin/table/index',
                     'data' : {href : '<?=$href?>'},
-                    "complete": function(response) {
-                        
-                        // $("#draw").text(response["responseJSON"]["draw"]);
-                    }
                 },
                 columns: [
-                    { data: "id" },
-                    { data: "e_name" },
-                    { data: "v_name" },
-                    { data: "spell" },
-                    { data: "category" },
-                    { data: "action" },
+                    <?php foreach($header as $k=>$head){ ?>
+                        { data: "<?=$k?>" },
+                    <?php } ?>
                 ],
             });
         });

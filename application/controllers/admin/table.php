@@ -18,6 +18,9 @@ class Table extends CI_Controller
                 $data=$this->Model->getAllTable($it['href'],$limit,$start);
                 $total = $this->Model->getTotal('category');
                 break;
+            case 'exercise' :
+                $data=$this->Model->getAllTable($it['href'],$limit,$start);
+                break;
             case 'vocabulary' :
                 $orderBy = "id DESC";
                 $condition = '';
@@ -53,7 +56,8 @@ class Table extends CI_Controller
                     break;
                 case 'pharse' :
                     foreach ($data as $val){
-                        $table[] = $val; 
+                        $val['action'] ="<a href='".base_url()."edit/".$val['id']."'>Edit</a>";
+                        $table[] = $val;                         
                     }
                     break;
                 case 'vocabulary' :

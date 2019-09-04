@@ -11,6 +11,7 @@
     <meta property="og:site_name" content="Game Full Crack Link Torrent">
     <link href="<?=base_url("public/css/bootstrap.min.css")?>" rel="stylesheet" type="text/css">
     <link href="<?=base_url("public/css/toast.min.css")?>" rel="stylesheet" type="text/css">
+    <link href="<?=base_url("public/plugin/select2/select2.min.css")?>" rel="stylesheet" type="text/css">
     <script src="<?=base_url("public/js/jquery-3.3.1.min.js")?>" type="application/javascript"></script>
     <link href="<?=base_url("public/css/reset.min.css")?>" rel="stylesheet" type="text/css">
     <link href="<?=base_url("public/css/admin-style.css")?>" rel="stylesheet" type="text/css">
