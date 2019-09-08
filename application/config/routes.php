@@ -63,6 +63,7 @@ $route['admin/ajax/pharse'] = 'admin/pharse/index/indexAjax';
 
 $route['admin/exercise'] = 'admin/exercise/index';
 $route['admin/ajax/exercise'] = 'admin/exercise/index/indexAjax';
+$route['admin/ajax/exercise/loadtable'] = 'admin/exercise/index/loadTableVocabularyInExcercise';
 
 $route['admin/category/table'] = 'admin/category/index/table';
 $route['admin'] = 'admin/admin';

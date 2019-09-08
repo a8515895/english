@@ -71,3 +71,23 @@
     border : 1px solid #ccc;
     padding: 10px;
 }
+.exercise-result,.exercise-vocabulary{
+    height: 100%;
+}
+.table-result{
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+.exercise-vocabulary .table-vocabulary{
+    overflow: auto;
+    box-shadow: 6px 4px 10px 6px #ccc;
+    height: calc(100% - 100px);
+}
+.button-result{
+    padding: 5px;
+    height: 25px;
+}
+.content-table-result{
+    padding: 5px;
+}

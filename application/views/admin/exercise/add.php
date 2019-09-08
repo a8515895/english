@@ -1,4 +1,5 @@
 
+
 <div class="title">
     <div class="row">
         <div class="col title-left">
@@ -14,25 +15,47 @@
 </div>
 <div class="content">
     <div class="row exercise-content">
-        <div class="col-md exercise-result"></div>
+        <div class="col-md exercise-result">
+            <div class="table-result">
+                <div class="row button-result">
+                    <div class="col">
+                        <button class="btn btn-success">Submit</button>
+                    </div>
+                    <div class="col" style="text-align : right">
+                        <button class="btn btn-danger pull-right">Reset</button>
+                    </div>
+                </div>
+                <div class="content-table-result">
+                    <table class="table table-bordered table-success">
+                        <tr>
+                            <td>test</td>
+                            <td>test</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="col-md exercise-vocabulary">
             <div class="search-vocabulary">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <input id="search-vocabulary-input" type="text" class="form-control" placeholder="Vocabulary or Pharse" aria-label="Vocabulary or Pharse" aria-describedby="basic-addon1">
                 </div>
             </div>
             <div class="filter-vocabulary">
                 <div class="row">
                     <div class="col">
-                        <select id="select-category">
+                        <select id="select-category" class="form-control">
                             <option value="">-- Mời chọn thể loại</option>
+                            <?php foreach($categorys as $category){ ?>
+                                <option value="<?=$category['id']?>"><?=$category['e_name']?></option>
+                            <?php } ?>
                         </select>
                     </div>
                     <div class="col">
-                        <select id="select-type">
+                        <select id="select-type" class="form-control">
                             <option value="">-- Mời chọn loại từ</option>
                             <option value="n">n</option>
                             <option value="v">v</option>
@@ -41,7 +64,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <select id="select-class">
+                        <select id="select-class" class="form-control">
                             <option value="">-- Mời chọn dạng từ</option>
                             <option value="vocabulary">Vocabulary</option>
                             <option value="pharse">Pharse</option>
@@ -49,31 +72,47 @@
                     </div>
                 </div>
             </div>
+            <div class="table-vocabulary" data-vocabulary="" data-class="" data-type="" data-category="">
+
+            </div>
         </div>
     </div>
-    <!-- <form autocomplete="off" method="post" data-url="admin/exercise/index/add" action="javascript:void(0)" onsubmit="postAjax(this)">
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Phrase</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" name="e_name" placeholder="Vocabulary">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Tiếng Viết</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" name="v_name" placeholder="Tiếng Việt">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputPassword3" class="col-sm-4 col-form-label"></label>
-            <div class="col-sm-4">
-                <button class="btn btn-success" type="submit">Save Phrase</button>
-            </div>
-        </div>
-    </form> -->
 </div>
 <script>
-    $("#select-category").select2({
-        
-    });
+    $(document).ready(function(){
+        $(".table-vocabulary,.content-table-result").slimScroll({
+            height : 'calc(100% - 100px)'
+        });
+        loadTableVocabularyInExcercise();
+    })
+    $('#search-vocabulary-input').on('keyup',function(){
+        let val = $(this).val();
+        $(".table-vocabulary").data('vocabulary',val);
+        loadTableVocabularyInExcercise()
+    })
+    $("#select-class").on("change",function(){
+        let val = $(this).val();
+        $(".table-vocabulary").data('class',val);
+        loadTableVocabularyInExcercise()
+    })
+    $("#select-type").on("change",function(){
+        let val = $(this).val();
+        $(".table-vocabulary").data('type',val);
+        loadTableVocabularyInExcercise()
+    })
+    $("#select-category").on("change",function(){
+        let val = $(this).val();
+        $(".table-vocabulary").data('category',val);
+        loadTableVocabularyInExcercise()
+    })
+    $(document).on("click",".row-vocabulary",function(){
+        console.log($(this).data())
+    })
+    function loadTableVocabularyInExcercise(data = {}){       
+        data['vocabulary'] = $(".table-vocabulary").data('vocabulary');
+        data['class'] = $(".table-vocabulary").data('class');
+        data['type'] = $(".table-vocabulary").data('type');
+        data['category'] = $(".table-vocabulary").data('category');
+        $('.table-vocabulary').load(url+'admin/ajax/exercise/loadtable',{filter : data})
+    }
 </script>

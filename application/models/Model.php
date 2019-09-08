@@ -82,7 +82,7 @@ class Model extends CI_Model{
     public function getAllTable($table,$limit = '',$start = '',$order = "id ASC",$condition = ''){
         switch($table){
             case "vocabulary":
-                $select = 'id,e_name,v_name,spell,category';
+                $select = 'id,e_name,v_name,spell,category,type';
             break;
             case "category":
                 $select = 'id,e_name,v_name';
