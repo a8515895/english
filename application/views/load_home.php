@@ -4,9 +4,7 @@
     <?php $this->load->view('head'); ?>
 </head>
 <body>
-    <!-- <header>
-        <?php $this->load->view('header'); ?>
-    </header> -->
+    <?php $this->load->view('header'); ?>
     <section class="body-section">
         <h1>ok</h1>
     </section>

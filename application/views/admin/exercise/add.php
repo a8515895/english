@@ -19,18 +19,39 @@
             <div class="table-result">
                 <div class="row button-result">
                     <div class="col">
-                        <button class="btn btn-success">Submit</button>
+                        <button type="button" class="btn btn-success" onclick="addExcercise()">Submit</button>
+                    </div>
+                    <div class="col" style="text-align : center">
+                        <button type="button" data-toggle="modal"  data-target="#randomModal" class="btn btn-warning">Random</button>
+                        <div class="modal fade" id="randomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input id="numberRandom" type="number"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="randomExcercise()">Save changes</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col" style="text-align : right">
-                        <button class="btn btn-danger pull-right">Reset</button>
+                        <button type="button" onclick="resetExcercise()" class="btn btn-danger pull-right">Reset</button>
                     </div>
                 </div>
-                <div class="content-table-result">
-                    <table class="table table-bordered table-success">
-                        <tr>
-                            <td>test</td>
-                            <td>test</td>
-                        </tr>
+                <div class="row name-excercise">
+                    <input class="form-control" id="name-excercise" placeholder="Tên bài kiểm tra" />
+                </div>
+                <div class="row content-table-result">
+                    <table id="content-table-result" class="table table-bordered table-success">
+
                     </table>
                 </div>
             </div>
@@ -80,39 +101,32 @@
 </div>
 <script>
     $(document).ready(function(){
+        let list_vocabulary = [];        
         $(".table-vocabulary,.content-table-result").slimScroll({
             height : 'calc(100% - 100px)'
         });
         loadTableVocabularyInExcercise();
     })
-    $('#search-vocabulary-input').on('keyup',function(){
-        let val = $(this).val();
-        $(".table-vocabulary").data('vocabulary',val);
-        loadTableVocabularyInExcercise()
-    })
-    $("#select-class").on("change",function(){
-        let val = $(this).val();
-        $(".table-vocabulary").data('class',val);
-        loadTableVocabularyInExcercise()
-    })
-    $("#select-type").on("change",function(){
-        let val = $(this).val();
-        $(".table-vocabulary").data('type',val);
-        loadTableVocabularyInExcercise()
-    })
-    $("#select-category").on("change",function(){
-        let val = $(this).val();
-        $(".table-vocabulary").data('category',val);
-        loadTableVocabularyInExcercise()
-    })
-    $(document).on("click",".row-vocabulary",function(){
-        console.log($(this).data())
-    })
-    function loadTableVocabularyInExcercise(data = {}){       
-        data['vocabulary'] = $(".table-vocabulary").data('vocabulary');
-        data['class'] = $(".table-vocabulary").data('class');
-        data['type'] = $(".table-vocabulary").data('type');
-        data['category'] = $(".table-vocabulary").data('category');
-        $('.table-vocabulary').load(url+'admin/ajax/exercise/loadtable',{filter : data})
+    function randomExcercise(){
+        list_vocabulary = [];
+        let number = $("#numberRandom").val();
+        if(number == '' || number == 0){
+            return false;
+        }
+        $.get(url+'admin/exercise/index/randomExcercise',{count : number},function(kq){
+            let res = $.parseJSON(kq);
+            let html = '';
+            res.forEach((data)=>{
+                list_vocabulary[data.id] = {id : data.id,class : data.class}
+                html +=
+                `
+                    <tr>
+                        <td>${data.e_name} ${(data.type != null)?"("+data.type+")":""}</td>
+                        <td>${data.v_name}</td>
+                    </tr>
+                `;
+            })
+            $("#content-table-result").html(html)
+        })
     }
 </script>

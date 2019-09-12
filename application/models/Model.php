@@ -11,7 +11,13 @@ class Model extends CI_Model{
         if(!empty($option['whereArray'])){
             foreach($option['whereArray'] as $key=>$where){
                 if(is_array($where)){
-                    $query->where($where);                    
+                    if(is_numeric(key($where))){
+                        foreach($where as $where2){
+                            $query->where($where2); 
+                        }
+                    }else{
+                        $query->where($where); 
+                    }                                       
                 }else{
                     if(is_numeric($key)){
                         $query->where($where);
@@ -75,11 +81,16 @@ class Model extends CI_Model{
     }
     public function insert($table,$data){
         $this->db->insert($table,$data);
+        return $this->db->insert_id();
+    }
+    public function delete($table,$condition){
+        $this->db->delete($table,$condition);
     }
     public function update($table,$data,$condition){
         $this->db->update($table,$data,$condition);
     }
-    public function getAllTable($table,$limit = '',$start = '',$order = "id ASC",$condition = ''){
+    public function getAllTable($table,$limit = '',$start = '',$order = "created_at ASC",$condition = ''){
+        $select = "*";
         switch($table){
             case "vocabulary":
                 $select = 'id,e_name,v_name,spell,category,type';
@@ -99,6 +110,9 @@ class Model extends CI_Model{
             $query = $query->where($condition);
         }
         return $query->order_by($order)->select($select)->get($table)->result_array();
+    }
+    public function getTable($table,$condition){
+        return $this->db->get_where($table,$condition)->first_row();
     }
     public function getTotal($table){
         return $this->db->get($table)->num_rows();

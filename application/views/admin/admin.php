@@ -27,6 +27,11 @@
                     <i class="fab fa-amilia fa-2x"></i>
                 </a>
             </li>
+            <li data-toggle="tooltip" title="Trang chủ" data-placement="right">
+                <a  href="<?=base_url()?>">
+                    <i class="fas fa-sign-out-alt fa-2x"></i>
+                </a>
+            </li>            
             <!-- <li data-href="category" data-toggle="tooltip" title="Test" data-placement="right">
                 <a  class="" href="javascript:void(0)">
                     <i class="fab fa-adn fa-2x"></i>

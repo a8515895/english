@@ -17,14 +17,13 @@ class Index extends CI_Controller{
         if($action == 'list'){
             $this->loadTable();
         }elseif($action == 'add'){
-
             $this->loadAdd();
         }
     }
     function loadTable(){
         $data['title'] = 'Bài tập';
         $data['href'] = 'exercise';
-        $data['header'] = array('id'=>'Bài tập','name'=>'Tên bài tập','active'=>'Trạng thái','count'=>'Số câu','created_at'=>'Ngày tạo','update_at'=>'Ngày cập nhật','action'=>'Action');
+        $data['header'] = array('id'=>'Bài tập','name'=>'Tên bài tập','active'=>'Trạng thái','count'=>'Số câu','created_at'=>'Ngày tạo','updated_at'=>'Ngày cập nhật','action'=>'Action');
         $this->load->view('admin/list',$data);
     }
     function loadAdd(){
@@ -32,13 +31,11 @@ class Index extends CI_Controller{
         $data['categorys'] = $this->Model->getAllTable('category');
         $this->load->view('admin/exercise/add',$data);
     }
-    function loadTableVocabularyInExcercise(){
-        $condition = [];
-        $data['vocabulary'] = [];
+    function loadVocabulary($filter = []){
+        $condition = [];        
         $arr=[];
         $class = [];
-        if(!empty($this->input->post('filter'))){
-            $filter = $this->input->post('filter');
+        if(!empty($filter)){
             if(!empty($filter['vocabulary'])){
                 $condition[] = "e_name like '%".$filter['vocabulary']."%'";
             }
@@ -71,26 +68,47 @@ class Index extends CI_Controller{
                 $new_arr = [];
             }
         }
-        $data['vocabulary'] = $arr;
+        return $arr;
+    }
+    function loadTableVocabularyInExcercise(){
+        $data['vocabulary'] = [];
+        $data['vocabulary'] = $this->loadVocabulary($this->input->post('filter'));   
         $this->load->view('admin/exercise/table-vocabulary',$data);
     }
+    function randomExcercise(){
+        $arr = $this->loadVocabulary();
+        $max = $this->input->get('count');
+        $tmp_arr = [];
+        $new_arr = [];
+        if($max > count($arr)) $max = count($arr);
+        while(count($tmp_arr)<$max){
+            $numbers = rand(0, (count($arr)-1));
+            if(empty($tmp_arr)){
+                $tmp_arr[] = $numbers;
+            }else{
+                $check = true;
+                foreach($tmp_arr as $it){
+                    if($numbers == $it) $check = false;
+                }
+                if($check) $tmp_arr[] = $numbers;
+            }
+        }
+        foreach($tmp_arr as $it){
+            $new_arr[] = $arr[$it];
+        }        
+        echo json_encode($new_arr);
+    }
+    function delete(){
+        $id = $this->uri->segment(4);
+        $this->Model->delete('exercise',['id'=>$id]);
+    }
     function add(){
-        if(empty($this->input->post('e_name')) || empty($this->input->post('v_name')) || empty($this->input->post('spell'))){
-            echo json_encode(array("err"=>1,"msg"=> "Điền đầy đủ thông tin"));
-            return;
+        $data = $this->input->post('data');
+        $name = $this->input->post('name');
+        $id = $this->Model->insert('exercise',['name'=>$name,'count'=>count($data),"student"=>$this->session->userdata("id")]);
+        foreach($data as $it){
+            $this->Model->insert('exercise_detail',['class'=>$it['class'],'vocabulary_id'=>$it['id'],'id'=>$id]);
         }
-        $arr['e_name'] =strtolower(trim($this->input->post('e_name')));
-        $arr['v_name'] =strtolower(trim($this->input->post('v_name')));
-        $arr['spell'] = strtolower(trim($this->input->post('spell')));
-        $arr['category'] = $this->input->post('category');
-        $arr['type'] = $this->input->post('type');
-        if($this->Model->isEmptyVocabulary($arr['e_name'],$arr['type'])){
-            $this->Model->insert("vocabulary",$arr);
-            echo json_encode(array("err"=>0,"msg"=> "Thêm từ vựng thành công"));
-        }else{
-            echo json_encode(array("err"=>1,"msg"=> "Từ này đã tồn tại"));
-        }
-        
-        
+        echo json_encode(array("err"=>0,"msg"=>"Thêm thành công"));
     }
 }

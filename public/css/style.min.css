@@ -1,1 +1,36 @@
-.box-img{text-align:center}.box-img .div-contain-img{overflow:hidden;height:175px;width:125px;margin:auto}.box-img a{color:#692180}.box-img h3{margin:0}.box-img a:hover{color:#ae40d3;text-decoration:none}header nav.navbar{margin:0;border-radius:0;border:none}header .navbar-default .navbar-nav>li>a{color:#fff}.navbar-default .navbar-nav>.open>a,.navbar-default .navbar-nav>.open>a:focus,.navbar-default .navbar-nav>.open>a:hover,.nav.navbar-nav>.dropdown>a:hover{color:#fff;background:#b538de}.body-section{min-height:calc(100% - 52px);background:#f8f8f8}.body-section>.container{background:#Fff}.pagination ul>li{display:inline-block;border:1px solid #692180;height:25px;width:25px;text-align:center}.pagination ul>li a{color:#692180;display:block;width:100%;height:100%;line-height:2}.pagination ul>li a:hover{text-decoration:none}.pagination ul>li a.active{background:#692180;color:#fff;font-weight:bold}
+.box-img{text-align:center}.box-img .div-contain-img{overflow:hidden;height:175px;width:125px;margin:auto}.box-img a{color:#f7762b}.box-img h3{margin:0}.box-img a:hover{color:#ae40d3;text-decoration:none}header nav.navbar{margin:0;border-radius:0;border:none}header .navbar-default .navbar-nav>li>a{color:#fff}.navbar-default .navbar-nav>.open>a,.navbar-default .navbar-nav>.open>a:focus,.navbar-default .navbar-nav>.open>a:hover,.nav.navbar-nav>.dropdown>a:hover{color:#fff;background:#b538de}.body-section{min-height:calc(100% - 52px);background:#f8f8f8}.body-section>.container{background:#Fff}.pagination ul>li{display:inline-block;border:1px solid #f7762b;height:25px;width:25px;text-align:center}.pagination ul>li a{color:#f7762b;display:block;width:100%;height:100%;line-height:2}.pagination ul>li a:hover{text-decoration:none}.pagination ul>li a.active{background:#f7762b;color:#fff;font-weight:bold}
+.navbar a{
+    color: #Fff;
+    font-size: 14px;
+    font-weight: 700; 
+}
+.body-section{
+    padding: 10px
+}
+.table-dark a{
+    color: #fff;
+}
+.test-content{
+    display: none;
+}
+.test-content.active{
+    display: flex;
+}
+.result{
+    text-align : center;
+    width : 100%;
+    font-size : 36px
+}
+.result span{
+    font-size : 36px
+}
+.avatar{
+    height: 25px;
+    width: 25px;
+    border-radius: 100%;
+    overflow: hidden;
+    cursor: pointer;
+}
+.avatar img{
+    width: 100%;
+}

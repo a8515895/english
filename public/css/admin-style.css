@@ -85,9 +85,12 @@
     height: calc(100% - 100px);
 }
 .button-result{
-    padding: 5px;
+    padding: 10px;
     height: 25px;
 }
 .content-table-result{
-    padding: 5px;
+    padding: 10px;
+}
+.name-excercise{
+    padding: 10px
 }

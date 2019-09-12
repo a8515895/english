@@ -56,9 +56,9 @@ class Index extends CI_Controller{
                             break;
                             case 1: $i = 'v_name';                             
                             break;
-                            case 2: $i = 'type';                             
+                            case 2: $i = 'spell';                             
                             break;
-                            case 3: $i = 'spell';                             
+                            case 3: $i = 'type';                             
                             break;
                             case 4: $i = 'category';                             
                             break;

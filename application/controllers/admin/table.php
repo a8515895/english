@@ -16,10 +16,11 @@ class Table extends CI_Controller
         switch ($it['href']){
             case 'category' :
                 $data=$this->Model->getAllTable($it['href'],$limit,$start);
-                $total = $this->Model->getTotal('category');
+                $total = $this->Model->getTotal($it['href']);
                 break;
             case 'exercise' :
-                $data=$this->Model->getAllTable($it['href'],$limit,$start);
+                $data=$this->Model->getAllTable($it['href'],$limit,$start,"created_at DESC",["student"=>$this->session->userdata("id")]);
+                $total = $this->Model->getTotal($it['href']);
                 break;
             case 'vocabulary' :
                 $orderBy = "id DESC";
@@ -52,6 +53,13 @@ class Table extends CI_Controller
                 case 'category' :
                     foreach ($data as $val){
                         $table[] = $val; 
+                    }
+                    break;
+                case 'exercise' :
+                    foreach ($data as $val){     
+                        $val['active'] = ($val['active'] == 1) ? "Kích hoạt" : "Chưa kích hoạt";
+                        $val['action'] ="<a href='javascript:void(0)' data-href='".base_url()."admin/exercise/delete/".$val['id']."' onclick='confirmDelete(this)'>Delete</a>";
+                        $table[] = $val;  
                     }
                     break;
                 case 'pharse' :
