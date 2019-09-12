@@ -7,32 +7,36 @@ $(document).on('click','.body-left li[data-href]',function () {
     $(this).addClass('active');
     loadAjax('list',href)
 })
-function loadAjax(action,href) {
+function loadAjax(action,href,id="") {
     $("#loading").show();
     $.ajax({
         method : 'get',
         type : 'get',
         url : url+'admin/ajax/'+href,
-        data : {action : action},
+        data : {action : action,id : id},
         success : function (kq) {
             $('.body-right .section-content').html(kq);
-            window.history.pushState(null, null,url+"admin/"+href+"?action="+action);
+            rewrite_url = url+"admin/"+href+"?action="+action;
+            if(id != "") rewrite_url += `&id=${id}`;
+            window.history.pushState(null, null,rewrite_url);
         }
     }).done(function () {
         $("#loading").hide();
     });
 }
-function loadAjaxDefault(action) {
+function loadAjaxDefault(action,id="") {
     href = $('.body-left li.active').data('href')
     $("#loading").show();
     $.ajax({
         method : 'get',
         type : 'get',
         url : url+'admin/ajax/'+href,
-        data : {action : action},
+        data : {action : action,id : id},
         success : function (kq) {
             $('.body-right .section-content').html(kq);
-            window.history.pushState(null, null,url+"admin/"+href+"?action="+action);
+            rewrite_url = url+"admin/"+href+"?action="+action;
+            if(id != "") rewrite_url += `&id=${id}`;
+            window.history.pushState(null, null,rewrite_url);
         }
     }).done(function () {
         $("#loading").hide();

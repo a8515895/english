@@ -48,6 +48,8 @@
         }
         else{
             $(content).find('input').addClass('is-invalid');
+            let val = $(content).find('input').val();
+            $(content).find('input').val(val+` (${e})`)
             result['false']++ ;     
         }   
         if(stt != last){

@@ -18,6 +18,10 @@ class Table extends CI_Controller
                 $data=$this->Model->getAllTable($it['href'],$limit,$start);
                 $total = $this->Model->getTotal($it['href']);
                 break;
+            case 'result' :
+                $data=$this->Model->getAllTable("result_log",$limit,$start,"created_at DESC",["student"=>$this->session->userdata("id")]);
+                $total = $this->Model->getTotal("result_log");
+                break;
             case 'exercise' :
                 $data=$this->Model->getAllTable($it['href'],$limit,$start,"created_at DESC",["student"=>$this->session->userdata("id")]);
                 $total = $this->Model->getTotal($it['href']);
@@ -52,6 +56,12 @@ class Table extends CI_Controller
             switch ($it['href']){
                 case 'category' :
                     foreach ($data as $val){
+                        $table[] = $val; 
+                    }
+                    break;
+                case 'result' :
+                    foreach ($data as $val){
+                        $val['action'] ="<a href='".base_url()."admin/result?action=edit&id=".$val['id']."'>Detail</a>";
                         $table[] = $val; 
                     }
                     break;

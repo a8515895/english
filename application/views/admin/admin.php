@@ -27,6 +27,11 @@
                     <i class="fab fa-amilia fa-2x"></i>
                 </a>
             </li>
+            <li data-href="result" data-toggle="tooltip" title="Kết quả" data-placement="right">
+                <a  href="javascript:void(0)">
+                    <i class="fas fa-thumbs-up fa-2x"></i>
+                </a>
+            </li>
             <li data-toggle="tooltip" title="Trang chủ" data-placement="right">
                 <a  href="<?=base_url()?>">
                     <i class="fas fa-sign-out-alt fa-2x"></i>
@@ -56,12 +61,13 @@
             else echo "let first_href = `$href`;";
         ?>
         let action = '<?=$action?>';
+        let id = '<?php if(!empty($id)) echo $id?>';
         if(first_href == "" || first_href == null ) {
             $('.body-left li a').first().click();
         }
         else {
             $(`.body-left li[data-href='${first_href}']`).addClass('active');
-            loadAjax(action,first_href)
+            loadAjax(action,first_href,id)
         }
     });
 </script>

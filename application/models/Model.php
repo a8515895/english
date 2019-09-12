@@ -89,7 +89,7 @@ class Model extends CI_Model{
     public function update($table,$data,$condition){
         $this->db->update($table,$data,$condition);
     }
-    public function getAllTable($table,$limit = '',$start = '',$order = "created_at ASC",$condition = ''){
+    public function getAllTable($table,$limit = '',$start = '',$order = "created_at DESC",$condition = ''){
         $select = "*";
         switch($table){
             case "vocabulary":

@@ -58,6 +58,10 @@ $route['admin/category'] = 'admin/category/index';
 $route['admin/vocabulary'] = 'admin/vocabulary/index';
 $route['admin/ajax/vocabulary'] = 'admin/vocabulary/index/indexAjax';
 
+$route['admin/result'] = 'admin/result/index';
+$route['admin/result/edit/:num'] = 'admin/result/index/edit';
+$route['admin/ajax/result'] = 'admin/result/index/indexAjax';
+
 $route['admin/pharse'] = 'admin/pharse/index';
 $route['admin/ajax/pharse'] = 'admin/pharse/index/indexAjax';
 
