@@ -31,6 +31,14 @@ class Index extends CI_Controller{
     function loadEdit(){    
         $data['title'] = 'Kết quả';    
         $data['href'] = 'result';
-        $this->load->view('result/edit',$data);
+        $id = $this->input->get("id");
+        $table = $this->Model->query("result_log_detail",["where"=>["id"=>$id]]);
+        $arr = [];
+        foreach($table as $key=>$it){
+            $arr[$key]['vocabulary'] = $this->Model->query($it['class'],["where"=>["id"=>$it['vocabulary']],"first_row"=>true])->e_name;
+            $arr[$key]['result'] = empty($it['result']) ? "false" : "true";
+        }
+        $data['data'] = $arr;
+        $this->load->view('admin/result/edit',$data);
     }
 }

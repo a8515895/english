@@ -110,9 +110,11 @@ CREATE TABLE `result_log` (
   KEY `exercise` (`exercise`),
   CONSTRAINT `result_log_ibfk_2` FOREIGN KEY (`student`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `result_log_ibfk_3` FOREIGN KEY (`exercise`) REFERENCES `exercise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `result_log` */
+
+insert  into `result_log`(`id`,`exercise`,`student`,`point`,`true`,`false`,`created_at`,`updated_at`) values (5,14,1,0,0,4,'2019-09-13 09:46:59','2019-09-13 09:46:59');
 
 /*Table structure for table `result_log_detail` */
 
@@ -130,6 +132,8 @@ CREATE TABLE `result_log_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `result_log_detail` */
+
+insert  into `result_log_detail`(`id`,`vocabulary`,`class`,`result`,`created_at`,`updated_at`) values (5,9,'vocabulary',0,'2019-09-13 09:46:59','2019-09-13 09:46:59'),(5,11,'vocabulary',0,'2019-09-13 09:46:59','2019-09-13 09:46:59'),(5,12,'vocabulary',0,'2019-09-13 09:46:59','2019-09-13 09:46:59'),(5,13,'vocabulary',0,'2019-09-13 09:46:59','2019-09-13 09:46:59');
 
 /*Table structure for table `student` */
 

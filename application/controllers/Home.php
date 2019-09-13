@@ -75,7 +75,7 @@ class Home extends CI_Controller{
                 "id"=>$id,
                 "vocabulary"=>$key,
                 "class"=>$log['class'],
-                "result"=>($log['result'] == true) ? 1 : 0,
+                "result"=>($log['result'] == "true") ? 1 : 0,
             ]);
         }
     }

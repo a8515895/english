@@ -19,22 +19,19 @@
             <th>Kết quả</th>
         </tr>
         </thead>
+        <tbody>
+            <?php foreach($data as $it){ ?>
+                <tr>
+                    <td><?=$it['vocabulary']?></td>
+                    <td><?=$it['result']?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
     </table>
     <script type="text/javascript">        
         $(document).ready(function(){
-            $('#table-simple-<?=$href?>').dataTable( {
-                processing: true,
-                "serverSide": true,
-                "ajax": {
-                    "type": "GET",
-                    'url': url+'admin/result/index/loadTableEdit',
-                },
-                columns: [
-                    {
-                        data : "vocabulary",
-                        data : "result"
-                    }
-                ],
+            $('#table-simple-<?=$href?>').dataTable({
+
             });
         });
     </script>
