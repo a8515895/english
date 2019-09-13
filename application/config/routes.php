@@ -62,6 +62,9 @@ $route['admin/result'] = 'admin/result/index';
 $route['admin/result/edit/:num'] = 'admin/result/index/edit';
 $route['admin/ajax/result'] = 'admin/result/index/indexAjax';
 
+$route['admin/lession'] = 'admin/lession/index';
+$route['admin/ajax/lession'] = 'admin/lession/index/indexAjax';
+
 $route['admin/pharse'] = 'admin/pharse/index';
 $route['admin/ajax/pharse'] = 'admin/pharse/index/indexAjax';
 
@@ -76,6 +79,6 @@ $route['admin'] = 'admin/admin';
 $route['exercise'] = 'home/exercise';
 $route['exercise-detail/:num'] = 'home/exercise_detail/:num';
 
-$route['exercise'] = 'home/exercise';
-$route['exercise-detail/:num'] = 'home/exercise_detail/:num';
+$route['lession'] = 'home/lession';
+$route['lession-detail/:num'] = 'home/lession_detail/:num';
 

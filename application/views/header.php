@@ -11,6 +11,9 @@
                 <a class="nav-link" href="<?=base_url("exercise")?>">Bài tập</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="<?=base_url("lession")?>">Bài học</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="<?=base_url("admin")?>">Vào trang quản trị</a>
             </li>
             <!-- <li class="nav-item dropdown">

@@ -46,11 +46,11 @@
             <label class="col-sm-4 col-form-label">Type</label>
             <div class="col-sm-4">
                 <select class="custom-select custom-select-lg mb-3" name="type">
-                    <option value="1">n</option>
-                    <option value="2">v</option>
-                    <option value="3">adj</option>
-                    <option value="3">adv</option>
-                    <option value="3">other</option>
+                    <option value="n">n</option>
+                    <option value="v">v</option>
+                    <option value="adj">adj</option>
+                    <option value="adv">adv</option>
+                    <option value="other">other</option>
                 </select>
             </div>
         </div>

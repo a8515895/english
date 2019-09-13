@@ -56,7 +56,7 @@
     text-align: right;
     font-size: 13px;
 }
-.section-content,.exercise-content{
+.section-content,.exercise-content,.section-content,.lession-content{
     height: 100%;
     width: 100%;
 }
@@ -66,12 +66,12 @@
 .section-content .content{
     height: calc(100% - 50px);
 }
-.section-content .exercise-content .exercise-vocabulary{
+.section-content .exercise-content .exercise-vocabulary,.section-content .lession-content .lession-vocabulary{
     border-radius: 8px;
     border : 1px solid #ccc;
     padding: 10px;
 }
-.exercise-result,.exercise-vocabulary{
+.exercise-result,.exercise-vocabulary,.lession-result,.lession-vocabulary{
     height: 100%;
 }
 .table-result{
@@ -79,7 +79,7 @@
     border: 1px solid #ccc;
     border-radius: 8px;
 }
-.exercise-vocabulary .table-vocabulary{
+.exercise-vocabulary .table-vocabulary,.lession-vocabulary .table-vocabulary{
     overflow: auto;
     box-shadow: 6px 4px 10px 6px #ccc;
     height: calc(100% - 100px);
@@ -91,6 +91,6 @@
 .content-table-result{
     padding: 10px;
 }
-.name-excercise{
+.name-excercise,.name-lession{
     padding: 10px
 }

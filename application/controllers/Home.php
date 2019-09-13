@@ -43,6 +43,36 @@ class Home extends CI_Controller{
         $data['exercise'] = $id;
         $this->load->view('load_exercise_detail',$data);
     }
+    function lession(){
+        $data['lessions'] = $this->Model->getAllTable('lession','','',"created_at desc");
+        $data['avatar'] =  $this->session->userdata("avatar");
+        $this->load->view('load_lession',$data);
+    }
+    function lession_detail(){
+        $data['avatar'] =  $this->session->userdata("avatar");
+        $id = $this->uri->segment(2);
+        $data['lessions'] = $this->Model->getAllTable('lession_detail','','',"created_at ASC",["id"=>$id]);
+        $data['name'] = $this->Model->getTable('lession',['id'=>$id])->name;
+        $arrVol = [];
+        $arrPharse = [];
+        $arr = [];
+        foreach($data['lessions'] as $it){
+            if($it['class'] == 'vocabulary'){
+                $arrVol[] = $it['vocabulary_id'];
+            }else{
+                $arrPharse[] = $it['vocabulary_id'];
+            }
+        }
+        if(!empty($arrVol)){
+            $arr=array_merge($arr,$this->Model->query("vocabulary",["where_in"=>["id"=> $arrVol],"select"=>"id,e_name,v_name,type"]));
+        }
+        if(!empty($arrPharse)){
+            $arr=array_merge($arr,$this->Model->query("pharse",["where_in"=>["id"=> $arrPharse],"select"=>"id,e_name,v_name"]));
+        }
+        $data['test'] = $this->randomExcercise($arr);
+        $data['lession'] = $id;
+        $this->load->view('load_lession_detail',$data);
+    }
     function randomExcercise($arr){
         $max = count($arr);
         $tmp_arr = [];

@@ -126,42 +126,20 @@ function loadTableVocabularyInExcercise(data = {}){
     data['category'] = $(".table-vocabulary").data('category');
     $('.table-vocabulary').load(url+'admin/ajax/exercise/loadtable',{filter : data})
 }
-function addExcercise(){
-    let arr = [];
-    if($("#name-excercise").val() == null || $("#name-excercise").val() == '' || list_vocabulary.length == 0){
-        $.toast({ 
-            heading: 'Warning',
-            icon: 'warning',
-            text : 'Chưa đầy đủ thông tin', 
-            position : 'top-right'      
-        })
-        return false;
-    }
-    Object.keys(list_vocabulary).forEach((e)=>{
-        arr.push({id : e,class : list_vocabulary[e].class})
-    })    
-    $.post(url+`admin/exercise/index/add`,{data : arr,name : $("#name-excercise").val()},function(kq){
-        resetExcercise();
-        let res = $.parseJSON(kq);
-        if(res.err == 0){
-            $.toast({ 
-                heading: 'Success',
-                icon: 'Success',
-                text : 'Thêm thành công', 
-                position : 'top-right'      
-            })
-        }else{
-            $.toast({ 
-                heading: 'Error',
-                icon: 'Error',
-                text : 'Có lỗi xảy ra', 
-                position : 'top-right'      
-            })
-        }
-    })   
+function loadTableVocabularyInLession(data = {}){       
+    data['vocabulary'] = $(".table-vocabulary").data('vocabulary');
+    data['class'] = $(".table-vocabulary").data('class');
+    data['type'] = $(".table-vocabulary").data('type');
+    data['category'] = $(".table-vocabulary").data('category');
+    $('.table-vocabulary').load(url+'admin/ajax/exercise/loadtable',{filter : data})
 }
 function resetExcercise(){
     list_vocabulary = [];
     $("#content-table-result").html('');
     $("#name-excercise").val('');
+}
+function resetLession(){
+    list_vocabulary = [];
+    $("#content-table-result").html('');
+    $("#name-lession").val('');
 }

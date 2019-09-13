@@ -14,12 +14,12 @@
     <hr />
 </div>
 <div class="content">
-    <div class="row exercise-content">
-        <div class="col-md exercise-result">
+    <div class="row lession-content">
+        <div class="col-md lession-result">
             <div class="table-result">
                 <div class="row button-result">
                     <div class="col">
-                        <button type="button" class="btn btn-success" onclick="addExcercise()">Submit</button>
+                        <button type="button" class="btn btn-success" onclick="addLession()">Submit</button>
                     </div>
                     <div class="col" style="text-align : center">
                         <button type="button" data-toggle="modal"  data-target="#randomModal" class="btn btn-warning">Random</button>
@@ -36,18 +36,18 @@
                                     <input id="numberRandom" type="number"/>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" onclick="randomExcercise()">Save changes</button>
+                                    <button type="button" class="btn btn-primary" onclick="randomLession()">Save changes</button>
                                 </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col" style="text-align : right">
-                        <button type="button" onclick="resetExcercise()" class="btn btn-danger pull-right">Reset</button>
+                        <button type="button" onclick="resetLession()" class="btn btn-danger pull-right">Reset</button>
                     </div>
                 </div>
-                <div class="row name-excercise">
-                    <input class="form-control" id="name-excercise" placeholder="Tên bài kiểm tra" />
+                <div class="row name-lession">
+                    <input class="form-control" id="name-lession" placeholder="Tên bài học" />
                 </div>
                 <div class="row content-table-result">
                     <table id="content-table-result" class="table table-bordered table-success">
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md exercise-vocabulary">
+        <div class="col-md lession-vocabulary">
             <div class="search-vocabulary">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -105,7 +105,7 @@
         $(".table-vocabulary,.content-table-result").slimScroll({
             height : 'calc(100% - 100px)'
         });
-        loadTableVocabularyInExcercise();
+        loadTableVocabularyInLession();
         $(document).on("click",".row-vocabulary",function(){
             let data = {};        
             data = $(this).data();
@@ -130,9 +130,9 @@
             $("#content-table-result").append(html);
         })        
     })
-    function addExcercise(){
+    function addLession(){
         let arr = [];
-        if($("#name-excercise").val() == null || $("#name-excercise").val() == '' || list_vocabulary.length == 0){
+        if($("#name-lession").val() == null || $("#name-lession").val() == '' || list_vocabulary.length == 0){
             $.toast({ 
                 heading: 'Warning',
                 icon: 'warning',
@@ -144,8 +144,8 @@
         Object.keys(list_vocabulary).forEach((e)=>{
             arr.push({id : e,class : list_vocabulary[e].class})
         })    
-        $.post(url+`admin/exercise/index/add`,{data : arr,name : $("#name-excercise").val()},function(kq){
-            resetExcercise();
+        $.post(url+`admin/lession/index/add`,{data : arr,name : $("#name-lession").val()},function(kq){
+            resetLession();
             let res = $.parseJSON(kq);
             if(res.err == 0){
                 $.toast({ 
@@ -164,13 +164,13 @@
             }
         })   
     }
-    function randomExcercise(){
+    function randomLession(){
         list_vocabulary = [];
         let number = $("#numberRandom").val();
         if(number == '' || number == 0){
             return false;
         }
-        $.get(url+'admin/exercise/index/randomExcercise',{count : number},function(kq){
+        $.get(url+'admin/lession/index/randomLession',{count : number},function(kq){
             let res = $.parseJSON(kq);
             let html = '';
             res.forEach((data)=>{

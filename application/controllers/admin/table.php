@@ -22,6 +22,10 @@ class Table extends CI_Controller
                 $data=$this->Model->getAllTable("result_log",$limit,$start,"created_at DESC",["student"=>$this->session->userdata("id")]);
                 $total = $this->Model->getTotal("result_log");
                 break;
+            case 'lession' :
+                $data=$this->Model->getAllTable("lession",$limit,$start,"created_at DESC",["student"=>$this->session->userdata("id")]);
+                $total = $this->Model->getTotal("lession");
+                break;
             case 'exercise' :
                 $data=$this->Model->getAllTable($it['href'],$limit,$start,"created_at DESC",["student"=>$this->session->userdata("id")]);
                 $total = $this->Model->getTotal($it['href']);
@@ -69,6 +73,17 @@ class Table extends CI_Controller
                     foreach ($data as $val){     
                         $val['active'] = ($val['active'] == 1) ? "Kích hoạt" : "Chưa kích hoạt";
                         $val['action'] ="<a href='javascript:void(0)' data-href='".base_url()."admin/exercise/delete/".$val['id']."' onclick='confirmDelete(this)'>Delete</a>";
+                        $table[] = $val;  
+                    }
+                    break;
+                case 'lession' :
+                    foreach ($data as $val){     
+                        $val['action'] = 
+                        "   
+                            <a href='".base_url()."admin/result?action=edit&id=".$val['id']."'>Edit</a> |
+                            <a href='".base_url()."admin/result?action=dedlete&id=".$val['id']."'>Delete</a> |
+                            <a href='".base_url()."admin/result?action=createExercise&id=".$val['id']."'>Tạo bài tập</a>
+                        ";
                         $table[] = $val;  
                     }
                     break;
