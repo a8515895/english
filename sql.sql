@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
-MySQL - 10.4.6-MariaDB : Database - english
+SQLyog Professional v12.09 (64 bit)
+MySQL - 10.1.38-MariaDB : Database - english
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.6-MariaDB : Database - english
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`english` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`english` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
 
 USE `english`;
 
@@ -25,16 +25,29 @@ CREATE TABLE `category` (
   `e_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `v_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `spell` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `active` tinyint(4) DEFAULT 1,
-  `parent` int(11) DEFAULT 0,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `active` tinyint(4) DEFAULT '1',
+  `parent` int(11) DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `category` */
 
 insert  into `category`(`id`,`e_name`,`v_name`,`spell`,`active`,`parent`,`created_at`,`updated_at`) values (0,'Other','KHÁC',NULL,1,0,'2019-09-09 14:16:23','2019-09-09 14:16:23'),(1,'FOOD AND BEVERAGE','ĐỒ ĂN VÀ ĐỒ UỐNG',NULL,1,0,'2019-09-09 14:16:23','2019-09-09 14:16:23'),(2,'Daily life','CUỘC SỐNG HÀNG NGÀY',NULL,1,0,'2019-09-09 14:16:23','2019-09-09 14:16:23'),(3,'Education','GIÁO DỤC',NULL,1,0,'2019-09-09 14:16:23','2019-09-09 14:16:23'),(5,'Work And Job','CÔNG VIẸC6',NULL,1,0,'2019-09-09 14:16:23','2019-09-09 14:16:23');
+
+/*Table structure for table `excercise_detail` */
+
+DROP TABLE IF EXISTS `excercise_detail`;
+
+CREATE TABLE `excercise_detail` (
+  `id` int(11) DEFAULT NULL,
+  `e_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  KEY `id` (`id`),
+  CONSTRAINT `excercise_detail_ibfk_1` FOREIGN KEY (`id`) REFERENCES `exercise` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `excercise_detail` */
 
 /*Table structure for table `exercise` */
 
@@ -46,17 +59,17 @@ CREATE TABLE `exercise` (
   `count` int(11) DEFAULT NULL,
   `lession` int(11) DEFAULT NULL,
   `student` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp(),
-  `active` tinyint(4) DEFAULT 1,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `active` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `student` (`student`),
   CONSTRAINT `exercise_ibfk_1` FOREIGN KEY (`student`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `exercise` */
 
-insert  into `exercise`(`id`,`name`,`count`,`lession`,`student`,`created_at`,`updated_at`,`active`) values (15,'Bài 1',22,NULL,1,'2019-09-13 11:36:07','2019-09-13 11:36:07',1),(16,'bài 1.1',9,NULL,1,'2019-09-13 14:02:33','2019-09-13 14:02:33',1);
+insert  into `exercise`(`id`,`name`,`count`,`lession`,`student`,`created_at`,`updated_at`,`active`) values (15,'Bài 1',22,NULL,1,'2019-09-13 11:36:07','2019-09-13 11:36:07',1),(16,'bài 1.1',9,NULL,1,'2019-09-13 14:02:33','2019-09-13 14:02:33',1),(26,'Bài tập số 0 cho bài học BH 1',4,8,1,'2019-09-13 22:18:04','2019-09-13 22:18:04',1),(27,'Bài tập số 1 cho bài học BH 1',4,8,1,'2019-09-13 22:18:04','2019-09-13 22:18:04',1),(28,'Bài tập số 2 cho bài học BH 1',2,8,1,'2019-09-13 22:18:04','2019-09-13 22:18:04',1),(29,'Bài tập số 0 cho bài học BH 1',10,8,1,'2019-09-15 13:08:02','2019-09-15 13:08:02',1);
 
 /*Table structure for table `exercise_detail` */
 
@@ -66,15 +79,15 @@ CREATE TABLE `exercise_detail` (
   `id` int(11) DEFAULT NULL,
   `vocabulary_id` int(11) DEFAULT NULL,
   `class` enum('vocabulary','pharse') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp(),
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   KEY `exercise_detail_ibfk_1` (`id`),
   CONSTRAINT `exercise_detail_ibfk_1` FOREIGN KEY (`id`) REFERENCES `exercise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `exercise_detail` */
 
-insert  into `exercise_detail`(`id`,`vocabulary_id`,`class`,`created_at`,`updated_at`) values (15,42,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,43,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,44,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,45,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,46,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,47,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,48,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,49,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,50,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,51,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,52,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,53,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,54,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,55,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,56,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,57,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,58,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,59,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,60,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,61,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,62,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,63,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(16,47,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,48,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,49,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,53,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,56,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,57,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,60,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,61,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,63,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33');
+insert  into `exercise_detail`(`id`,`vocabulary_id`,`class`,`created_at`,`updated_at`) values (15,42,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,43,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,44,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,45,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,46,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,47,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,48,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,49,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,50,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,51,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,52,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,53,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,54,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,55,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,56,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,57,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,58,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,59,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,60,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,61,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,62,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(15,63,'vocabulary','2019-09-13 11:36:07','2019-09-13 11:36:07'),(16,47,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,48,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,49,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,53,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,56,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,57,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,60,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,61,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(16,63,'vocabulary','2019-09-13 14:02:33','2019-09-13 14:02:33'),(26,60,'vocabulary','2019-09-13 22:18:04','2019-09-13 22:18:04'),(26,43,'vocabulary','2019-09-13 22:18:04','2019-09-13 22:18:04'),(26,63,'vocabulary','2019-09-13 22:18:04','2019-09-13 22:18:04'),(26,57,'vocabulary','2019-09-13 22:18:04','2019-09-13 22:18:04'),(27,49,'vocabulary','2019-09-13 22:18:04','2019-09-13 22:18:04'),(27,56,'vocabulary','2019-09-13 22:18:04','2019-09-13 22:18:04'),(27,53,'vocabulary','2019-09-13 22:18:04','2019-09-13 22:18:04'),(27,61,'vocabulary','2019-09-13 22:18:04','2019-09-13 22:18:04'),(28,47,'vocabulary','2019-09-13 22:18:04','2019-09-13 22:18:04'),(28,48,'vocabulary','2019-09-13 22:18:04','2019-09-13 22:18:04'),(29,57,'vocabulary','2019-09-15 13:08:02','2019-09-15 13:08:02'),(29,56,'vocabulary','2019-09-15 13:08:02','2019-09-15 13:08:02'),(29,61,'vocabulary','2019-09-15 13:08:02','2019-09-15 13:08:02'),(29,47,'vocabulary','2019-09-15 13:08:02','2019-09-15 13:08:02'),(29,53,'vocabulary','2019-09-15 13:08:02','2019-09-15 13:08:02'),(29,63,'vocabulary','2019-09-15 13:08:02','2019-09-15 13:08:02'),(29,43,'vocabulary','2019-09-15 13:08:02','2019-09-15 13:08:02'),(29,48,'vocabulary','2019-09-15 13:08:02','2019-09-15 13:08:02'),(29,49,'vocabulary','2019-09-15 13:08:02','2019-09-15 13:08:02'),(29,60,'vocabulary','2019-09-15 13:08:02','2019-09-15 13:08:02');
 
 /*Table structure for table `lession` */
 
@@ -85,16 +98,16 @@ CREATE TABLE `lession` (
   `name` varchar(255) DEFAULT NULL,
   `count` int(11) DEFAULT NULL,
   `student` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp(),
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `student` (`student`),
   CONSTRAINT `lession_ibfk_1` FOREIGN KEY (`student`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 /*Data for the table `lession` */
 
-insert  into `lession`(`id`,`name`,`count`,`student`,`created_at`,`updated_at`) values (8,'BH 1',10,1,'2019-09-13 16:00:46','2019-09-13 16:00:46');
+insert  into `lession`(`id`,`name`,`count`,`student`,`created_at`,`updated_at`) values (8,'BH 1',4,1,'2019-09-13 16:00:46','2019-09-13 16:00:46');
 
 /*Table structure for table `lession_detail` */
 
@@ -104,15 +117,15 @@ CREATE TABLE `lession_detail` (
   `id` int(11) DEFAULT NULL,
   `vocabulary_id` int(11) DEFAULT NULL,
   `class` enum('vocabulary','pharse') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp(),
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   KEY `id` (`id`),
   CONSTRAINT `lession_detail_ibfk_1` FOREIGN KEY (`id`) REFERENCES `lession` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lession_detail` */
 
-insert  into `lession_detail`(`id`,`vocabulary_id`,`class`,`created_at`,`updated_at`) values (8,43,'vocabulary','2019-09-13 16:00:46','2019-09-13 16:00:46'),(8,47,'vocabulary','2019-09-13 16:00:46','2019-09-13 16:00:46'),(8,48,'vocabulary','2019-09-13 16:00:46','2019-09-13 16:00:46'),(8,49,'vocabulary','2019-09-13 16:00:46','2019-09-13 16:00:46'),(8,53,'vocabulary','2019-09-13 16:00:46','2019-09-13 16:00:46'),(8,56,'vocabulary','2019-09-13 16:00:46','2019-09-13 16:00:46'),(8,57,'vocabulary','2019-09-13 16:00:46','2019-09-13 16:00:46'),(8,60,'vocabulary','2019-09-13 16:00:46','2019-09-13 16:00:46'),(8,61,'vocabulary','2019-09-13 16:00:46','2019-09-13 16:00:46'),(8,63,'vocabulary','2019-09-13 16:00:46','2019-09-13 16:00:46');
+insert  into `lession_detail`(`id`,`vocabulary_id`,`class`,`created_at`,`updated_at`) values (8,49,'vocabulary','2019-09-15 21:11:50','2019-09-15 21:11:50'),(8,61,'vocabulary','2019-09-15 21:11:50','2019-09-15 21:11:50'),(8,63,'vocabulary','2019-09-15 21:11:50','2019-09-15 21:11:50'),(8,1,'vocabulary','2019-09-15 21:11:50','2019-09-15 21:11:50');
 
 /*Table structure for table `pharse` */
 
@@ -122,8 +135,8 @@ CREATE TABLE `pharse` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `e_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `v_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -142,16 +155,18 @@ CREATE TABLE `result_log` (
   `point` double DEFAULT NULL,
   `true` int(11) DEFAULT NULL,
   `false` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp(),
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `student` (`student`),
   KEY `exercise` (`exercise`),
   CONSTRAINT `result_log_ibfk_2` FOREIGN KEY (`student`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `result_log_ibfk_3` FOREIGN KEY (`exercise`) REFERENCES `exercise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `result_log` */
+
+insert  into `result_log`(`id`,`exercise`,`student`,`point`,`true`,`false`,`created_at`,`updated_at`) values (6,26,1,0,0,4,'2019-09-13 22:18:40','2019-09-13 22:18:40'),(7,26,1,7.5,3,1,'2019-09-14 08:55:54','2019-09-14 08:55:54'),(8,27,1,10,4,0,'2019-09-14 08:56:49','2019-09-14 08:56:49'),(9,26,1,2.5,1,3,'2019-09-15 13:06:02','2019-09-15 13:06:02'),(10,29,1,0,0,10,'2019-09-15 13:09:54','2019-09-15 13:09:54'),(11,29,1,0,0,10,'2019-09-15 13:10:37','2019-09-15 13:10:37'),(12,29,1,0,0,10,'2019-09-15 13:21:51','2019-09-15 13:21:51'),(13,26,1,0,0,4,'2019-09-15 13:22:02','2019-09-15 13:22:02');
 
 /*Table structure for table `result_log_detail` */
 
@@ -162,13 +177,15 @@ CREATE TABLE `result_log_detail` (
   `vocabulary` int(11) DEFAULT NULL,
   `class` enum('vocabulary','pharse') DEFAULT NULL,
   `result` tinyint(4) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp(),
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   KEY `result_log_detail_ibfk_1` (`id`),
   CONSTRAINT `result_log_detail_ibfk_1` FOREIGN KEY (`id`) REFERENCES `result_log` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `result_log_detail` */
+
+insert  into `result_log_detail`(`id`,`vocabulary`,`class`,`result`,`created_at`,`updated_at`) values (6,43,'vocabulary',0,'2019-09-13 22:18:40','2019-09-13 22:18:40'),(6,57,'vocabulary',0,'2019-09-13 22:18:40','2019-09-13 22:18:40'),(6,60,'vocabulary',0,'2019-09-13 22:18:40','2019-09-13 22:18:40'),(6,63,'vocabulary',0,'2019-09-13 22:18:40','2019-09-13 22:18:40'),(7,43,'vocabulary',1,'2019-09-14 08:55:55','2019-09-14 08:55:55'),(7,57,'vocabulary',0,'2019-09-14 08:55:55','2019-09-14 08:55:55'),(7,60,'vocabulary',1,'2019-09-14 08:55:55','2019-09-14 08:55:55'),(7,63,'vocabulary',1,'2019-09-14 08:55:55','2019-09-14 08:55:55'),(8,49,'vocabulary',1,'2019-09-14 08:56:49','2019-09-14 08:56:49'),(8,53,'vocabulary',1,'2019-09-14 08:56:49','2019-09-14 08:56:49'),(8,56,'vocabulary',1,'2019-09-14 08:56:49','2019-09-14 08:56:49'),(8,61,'vocabulary',1,'2019-09-14 08:56:49','2019-09-14 08:56:49'),(9,43,'vocabulary',0,'2019-09-15 13:06:02','2019-09-15 13:06:02'),(9,57,'vocabulary',1,'2019-09-15 13:06:02','2019-09-15 13:06:02'),(9,60,'vocabulary',0,'2019-09-15 13:06:02','2019-09-15 13:06:02'),(9,63,'vocabulary',0,'2019-09-15 13:06:02','2019-09-15 13:06:02'),(10,43,'vocabulary',0,'2019-09-15 13:09:54','2019-09-15 13:09:54'),(10,47,'vocabulary',0,'2019-09-15 13:09:55','2019-09-15 13:09:55'),(10,48,'vocabulary',0,'2019-09-15 13:09:55','2019-09-15 13:09:55'),(10,49,'vocabulary',0,'2019-09-15 13:09:55','2019-09-15 13:09:55'),(10,53,'vocabulary',0,'2019-09-15 13:09:55','2019-09-15 13:09:55'),(10,56,'vocabulary',0,'2019-09-15 13:09:55','2019-09-15 13:09:55'),(10,57,'vocabulary',0,'2019-09-15 13:09:55','2019-09-15 13:09:55'),(10,60,'vocabulary',0,'2019-09-15 13:09:55','2019-09-15 13:09:55'),(10,61,'vocabulary',0,'2019-09-15 13:09:55','2019-09-15 13:09:55'),(10,63,'vocabulary',0,'2019-09-15 13:09:55','2019-09-15 13:09:55'),(11,43,'vocabulary',0,'2019-09-15 13:10:37','2019-09-15 13:10:37'),(11,47,'vocabulary',0,'2019-09-15 13:10:37','2019-09-15 13:10:37'),(11,48,'vocabulary',0,'2019-09-15 13:10:37','2019-09-15 13:10:37'),(11,49,'vocabulary',0,'2019-09-15 13:10:37','2019-09-15 13:10:37'),(11,53,'vocabulary',0,'2019-09-15 13:10:37','2019-09-15 13:10:37'),(11,56,'vocabulary',0,'2019-09-15 13:10:37','2019-09-15 13:10:37'),(11,57,'vocabulary',0,'2019-09-15 13:10:37','2019-09-15 13:10:37'),(11,60,'vocabulary',0,'2019-09-15 13:10:37','2019-09-15 13:10:37'),(11,61,'vocabulary',0,'2019-09-15 13:10:37','2019-09-15 13:10:37'),(11,63,'vocabulary',0,'2019-09-15 13:10:37','2019-09-15 13:10:37'),(12,43,'vocabulary',0,'2019-09-15 13:21:51','2019-09-15 13:21:51'),(12,47,'vocabulary',0,'2019-09-15 13:21:51','2019-09-15 13:21:51'),(12,48,'vocabulary',0,'2019-09-15 13:21:51','2019-09-15 13:21:51'),(12,49,'vocabulary',0,'2019-09-15 13:21:51','2019-09-15 13:21:51'),(12,53,'vocabulary',0,'2019-09-15 13:21:51','2019-09-15 13:21:51'),(12,56,'vocabulary',0,'2019-09-15 13:21:51','2019-09-15 13:21:51'),(12,57,'vocabulary',0,'2019-09-15 13:21:51','2019-09-15 13:21:51'),(12,60,'vocabulary',0,'2019-09-15 13:21:51','2019-09-15 13:21:51'),(12,61,'vocabulary',0,'2019-09-15 13:21:51','2019-09-15 13:21:51'),(12,63,'vocabulary',0,'2019-09-15 13:21:51','2019-09-15 13:21:51'),(13,43,'vocabulary',0,'2019-09-15 13:22:02','2019-09-15 13:22:02'),(13,57,'vocabulary',0,'2019-09-15 13:22:02','2019-09-15 13:22:02'),(13,60,'vocabulary',0,'2019-09-15 13:22:02','2019-09-15 13:22:02'),(13,63,'vocabulary',0,'2019-09-15 13:22:02','2019-09-15 13:22:02');
 
 /*Table structure for table `student` */
 
@@ -180,8 +197,8 @@ CREATE TABLE `student` (
   `email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `avatar` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -199,14 +216,14 @@ CREATE TABLE `vocabulary` (
   `v_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `spell` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `type` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `category` int(11) DEFAULT 0,
-  `note` text COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `category` int(11) DEFAULT '0',
+  `note` text COLLATE utf8_unicode_ci,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `category` (`category`),
   CONSTRAINT `vocabulary_ibfk_1` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vocabulary` */
 
