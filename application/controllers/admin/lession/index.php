@@ -9,18 +9,19 @@ class Index extends CI_Controller{
     }
     function index(){
         $data['href'] = 'lession';
-        $data['action'] = $this->input->get('action');
+        $data['action'] = empty($this->input->get('action'))? "list" : $this->input->get('action');
         $data['id'] = $this->input->get('id');
         $this->load->view('admin/admin',$data);
     }
     function indexAjax(){
         $action = $this->input->get('action');
+        $id = $this->input->get('id');
         if($action == 'list'){
             $this->loadTable();
         }elseif($action == 'add'){
             $this->loadAdd();
         }elseif($action == 'edit'){
-            $this->loadEdit();
+            $this->loadAdd('edit',$id);
         }elseif($action == 'createExercise'){
             $this->loadCreateExercise();
         }
@@ -75,8 +76,25 @@ class Index extends CI_Controller{
         $data['header'] = array('id'=>'Bài học','name'=>'Tên bài hoc','created_at'=>'Ngày tạo','updated_at'=>'Ngày cập nhật','action'=>'Action');
         $this->load->view('admin/list',$data);
     }
-    function loadAdd(){
+    function loadAdd($action = "",$id = ""){
         $data['title'] = 'Bài học';
+        $data['action'] = 'edit';
+        $data['id'] = $id;
+        $data['data'] = [];
+        $data['name'] = "";
+        if(!empty($id)){
+            $class = [];
+            $arr = [];
+            $lession_detail = $this->Model->query("lession_detail",["where"=>["id"=>$id]]);
+            $data['name'] = $this->Model->query("lession",["where"=>["id"=>$id],"first_row"=>true])->name;
+            foreach($lession_detail as $it){
+                $class[$it['class']][] = $it['vocabulary_id'];
+            }
+            foreach(array_keys($class) as $it){
+                $arr = array_merge($arr,$this->Model->query($it,["where_in"=>["id"=>$class[$it]]]));
+            }
+            $data['data'] = $arr;
+        }
         $this->load->view('admin/lession/add',$data);
     }
     function loadVocabulary($filter = []){
@@ -169,16 +187,28 @@ class Index extends CI_Controller{
         return $new_arr;
     }
     function delete(){
+        echo "ok";
         $id = $this->uri->segment(4);
         $this->Model->delete('lession',['id'=>$id]);
     }
     function add(){
         $data = $this->input->post('data');
         $name = $this->input->post('name');
-        $id = $this->Model->insert('lession',['name'=>$name,'count'=>count($data),"student"=>$this->session->userdata("id")]);
-        foreach($data as $it){
-            $this->Model->insert('lession_detail',['class'=>$it['class'],'vocabulary_id'=>$it['id'],'id'=>$id]);
+        $id_current = $this->input->post('id');
+        if(!empty($id_current)){
+            $this->Model->update('lession',['name'=>$name,'count'=>count($data),"student"=>$this->session->userdata("id")],["id"=>$id_current]);
+            $this->Model->delete('lession_detail',["id"=>$id_current]);
+            foreach($data as $it){
+                $this->Model->insert('lession_detail',['class'=>$it['class'],'vocabulary_id'=>$it['id'],'id'=>$id_current]);
+            }
+            echo json_encode(array("err"=>0,"msg"=>"Thêm thành công","action"=>"edit"));
+        }else{
+            $id = $this->Model->insert('lession',['name'=>$name,'count'=>count($data),"student"=>$this->session->userdata("id")]);
+            foreach($data as $it){
+                $this->Model->insert('lession_detail',['class'=>$it['class'],'vocabulary_id'=>$it['id'],'id'=>$id]);
+            }
+            echo json_encode(array("err"=>0,"msg"=>"Thêm thành công","action"=>"add"));
         }
-        echo json_encode(array("err"=>0,"msg"=>"Thêm thành công"));
+
     }
 }

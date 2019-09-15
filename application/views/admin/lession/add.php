@@ -1,5 +1,3 @@
-
-
 <div class="title">
     <div class="row">
         <div class="col title-left">
@@ -47,11 +45,18 @@
                     </div>
                 </div>
                 <div class="row name-lession">
-                    <input class="form-control" id="name-lession" placeholder="Tên bài học" />
+                    <input value="<?=$name?>" class="form-control" id="name-lession" placeholder="Tên bài học" />
                 </div>
                 <div class="row content-table-result">
                     <table id="content-table-result" class="table table-bordered table-success">
-
+                        <?php if(!empty($id)){ ?>
+                            <?php foreach($data as $it){ ?>
+                                <tr data-id="<?=$it['id']?>" data-class="<?php if(!empty($it['type'])) echo "vocabulary"; else echo "pharse"?>">
+                                    <td><?=$it['e_name']?> <?=$it['type']?></td>
+                                    <td><?=$it['v_name']?></td>
+                                </tr>
+                            <?php } ?>
+                        <?php } ?>
                     </table>
                 </div>
             </div>
@@ -99,30 +104,42 @@
         </div>
     </div>
 </div>
-<script>        
-    let list_vocabulary = [];        
+<script>   
+    let list_vocabulary = []; 
+    let id_lession = '<?=$id?>';
+    <?php if(!empty($id)){ ?>        
+        <?php foreach($data as $it){ ?>
+            list_vocabulary.push({id : <?=$it['id']?>,class : '<?php if(!empty($it['type'])) echo "vocabulary"; else echo "pharse"?>'});
+        <?php } ?>   
+    <?php } ?> 
+ 
     $(document).ready(function(){
         $(".table-vocabulary,.content-table-result").slimScroll({
             height : 'calc(100% - 100px)'
         });
-        loadTableVocabularyInLession();
+        loadTableVocabularyInLession();  
+        
         $(document).on("click",".row-vocabulary",function(){
             let data = {};        
             data = $(this).data();
-            if(list_vocabulary[data.id] != null && list_vocabulary[data.id] != ''){
-                
-                $.toast({ 
-                    heading: 'Warning',
-                    icon: 'warning',
-                    text : 'Từ này đã có trong danh sách', 
-                    position : 'top-right'      
-                })
-                return false;
-            } 
-            list_vocabulary[data.id] = {id : data.id,class : data.class}
+            let check = true;
+            list_vocabulary.forEach((e)=>{
+                if(e.id == data.id && e.class == data.class){
+                    $.toast({ 
+                        heading: 'Warning',
+                        icon: 'warning',
+                        text : 'Từ này đã có trong danh sách', 
+                        position : 'top-right'      
+                    })
+                    check = false;
+                    return false;
+                }
+            })
+            if(!check) return false;
+            list_vocabulary.push({id : data.id,class : data.class})
             let html =
             `
-                <tr>
+                <tr data-id="${data.id}" data-class="${data.class}">
                     <td>${data.e} ${data.type}</td>
                     <td>${data.v}</td>
                 </tr>
@@ -130,6 +147,13 @@
             $("#content-table-result").append(html);
         })        
     })
+    function loadTableVocabularyInLession(data = {}){  
+        data['vocabulary'] = $(".table-vocabulary").data('vocabulary');
+        data['class'] = $(".table-vocabulary").data('class');
+        data['type'] = $(".table-vocabulary").data('type');
+        data['category'] = $(".table-vocabulary").data('category');
+        $('.table-vocabulary').load(url+'admin/ajax/exercise/loadtable',{filter : data})
+    }    
     function addLession(){
         let arr = [];
         if($("#name-lession").val() == null || $("#name-lession").val() == '' || list_vocabulary.length == 0){
@@ -140,14 +164,15 @@
                 position : 'top-right'      
             })
             return false;
-        }
-        Object.keys(list_vocabulary).forEach((e)=>{
-            arr.push({id : e,class : list_vocabulary[e].class})
-        })    
-        $.post(url+`admin/lession/index/add`,{data : arr,name : $("#name-lession").val()},function(kq){
+        }   
+        $.post(url+`admin/lession/index/add`,{data : list_vocabulary,name : $("#name-lession").val(),id : id_lession},function(kq){
             resetLession();
             let res = $.parseJSON(kq);
             if(res.err == 0){
+                if(res.action == "edit"){
+                    window.location.href = url+"admin/lession";
+                    return false;
+                }
                 $.toast({ 
                     heading: 'Success',
                     icon: 'Success',
@@ -186,4 +211,17 @@
             $("#content-table-result").html(html)
         })
     }
+
+    $(document).on("click",".content-table-result tr",function(){
+        let tr = $(this)[0];
+        let id = $(tr).data('id');
+        let classs = $(tr).data('class');
+        list_vocabulary.forEach((e,k)=>{
+            if(e.id == id && e.class == classs){
+                list_vocabulary.splice(k,1);
+                $(tr).remove();
+                return false;
+            }            
+        })
+    })
 </script>

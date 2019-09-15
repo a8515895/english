@@ -126,13 +126,7 @@ function loadTableVocabularyInExcercise(data = {}){
     data['category'] = $(".table-vocabulary").data('category');
     $('.table-vocabulary').load(url+'admin/ajax/exercise/loadtable',{filter : data})
 }
-function loadTableVocabularyInLession(data = {}){       
-    data['vocabulary'] = $(".table-vocabulary").data('vocabulary');
-    data['class'] = $(".table-vocabulary").data('class');
-    data['type'] = $(".table-vocabulary").data('type');
-    data['category'] = $(".table-vocabulary").data('category');
-    $('.table-vocabulary').load(url+'admin/ajax/exercise/loadtable',{filter : data})
-}
+
 function resetExcercise(){
     list_vocabulary = [];
     $("#content-table-result").html('');

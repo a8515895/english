@@ -81,7 +81,7 @@ class Table extends CI_Controller
                         $val['action'] = 
                         "   
                             <a href='".base_url()."admin/lession?action=edit&id=".$val['id']."'>Edit</a> |
-                            <a href='".base_url()."admin/lession?action=dedlete&id=".$val['id']."'>Delete</a> |
+                            <a onclick='confirmDelete(this)' href='javascript:void(0)' data-href='".base_url()."admin/lession/delete/".$val['id']."'>Delete</a> |
                             <a href='".base_url()."admin/lession?action=createExercise&id=".$val['id']."'>Tạo bài tập</a>
                         ";
                         $table[] = $val;  

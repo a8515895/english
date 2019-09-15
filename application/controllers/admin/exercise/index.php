@@ -9,7 +9,8 @@ class Index extends CI_Controller{
     }
     function index(){
         $data['href'] = 'exercise';
-        $data['action'] = $this->input->get('action');
+        $data['action'] = empty($this->input->get('action'))? "list" : $this->input->get('action');
+        $data['id'] = $this->input->get('id');
         $this->load->view('admin/admin',$data);
     }
     function indexAjax(){

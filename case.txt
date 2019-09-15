@@ -1,7 +1,4 @@
 - LÀM TÍNH NĂNG LỌC RA NHƯNG TỪ NÀO ĐÃ NẰM TRONG BÀI TẬP (0) (pending)
 - LÀM TÍNH NĂNG HIỂN THỊ RA NHỮNG TỪ ĐÃ NẰM TRONG BÀI TẬP NÀO (0) (pending)
-- LÀM TÍNH NĂNG LƯU CÂU TRẢ LỜI CHO MỖI HỌC SINH (1)
-- LÀM TÍNH NĂNG ĐĂNG NHẬP CHO HS (5)
-- LÀM TÍNH NĂNG ĐÁNH GIÁ HS (0)
-- LÀM TÍNH NĂNG LIST TỪ VỰNG RIÊNG BIỆT CHO HS (0)
+
 - LÀM TÍNH NĂNG SEARCH TỪ ĐIỂN CHO HS, NẾU KHÔNG CÓ THÌ TỰ ĐỘNG THÊM (0)

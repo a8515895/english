@@ -27,7 +27,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Chọn số câu</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="row name-excercise">
-                    <input class="form-control" id="name-excercise" placeholder="Tên bài kiểm tra" />
+                    <input class="form-control" id="name-excercise"  placeholder="Tên bài kiểm tra" />
                 </div>
                 <div class="row content-table-result">
                     <table id="content-table-result" class="table table-bordered table-success">
