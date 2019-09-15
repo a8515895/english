@@ -80,9 +80,9 @@ class Table extends CI_Controller
                     foreach ($data as $val){     
                         $val['action'] = 
                         "   
-                            <a href='".base_url()."admin/result?action=edit&id=".$val['id']."'>Edit</a> |
-                            <a href='".base_url()."admin/result?action=dedlete&id=".$val['id']."'>Delete</a> |
-                            <a href='".base_url()."admin/result?action=createExercise&id=".$val['id']."'>Tạo bài tập</a>
+                            <a href='".base_url()."admin/lession?action=edit&id=".$val['id']."'>Edit</a> |
+                            <a href='".base_url()."admin/lession?action=dedlete&id=".$val['id']."'>Delete</a> |
+                            <a href='".base_url()."admin/lession?action=createExercise&id=".$val['id']."'>Tạo bài tập</a>
                         ";
                         $table[] = $val;  
                     }
@@ -90,10 +90,12 @@ class Table extends CI_Controller
                 case 'pharse' :
                     foreach ($data as $val){
                         $val['action'] ="<a href='".base_url()."edit/".$val['id']."'>Edit</a>";
+                        $val['e_name'] .= $this->myfunction->speakEnglish($val['e_name']);
                         $table[] = $val;                         
                     }
                     break;
                 case 'vocabulary' :
+                    
                     $categorys = $this->Model->getAllTable("category");
                     $category = [];
                     foreach($categorys as $cate){
@@ -102,6 +104,7 @@ class Table extends CI_Controller
                     
                     foreach ($data as $val){
                         $val['category'] = $category[$val['category']];
+                        $val['e_name'] .= $this->myfunction->speakEnglish($val['e_name']);
                         $val['action'] ="<a href='".base_url()."edit/".$val['id']."'>Edit</a>";
                         $table[] = $val;        
                     }

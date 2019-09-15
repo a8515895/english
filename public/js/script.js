@@ -143,3 +143,7 @@ function resetLession(){
     $("#content-table-result").html('');
     $("#name-lession").val('');
 }
+function speakEnglish(it){
+    let audio = $(it).find("audio");
+    audio[0].play();
+}

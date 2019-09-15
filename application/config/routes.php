@@ -63,6 +63,7 @@ $route['admin/result/edit/:num'] = 'admin/result/index/edit';
 $route['admin/ajax/result'] = 'admin/result/index/indexAjax';
 
 $route['admin/lession'] = 'admin/lession/index';
+$route['admin/lession/createExercise'] = 'admin/lession/index/createExercise';
 $route['admin/ajax/lession'] = 'admin/lession/index/indexAjax';
 
 $route['admin/pharse'] = 'admin/pharse/index';

@@ -69,11 +69,13 @@ class Index extends CI_Controller{
                     if(str_word_count($arr['e_name']) == 1){
                         if($this->Model->isEmptyVocabulary($arr['e_name'],$arr['type'])){                        
                             $this->Model->insert("vocabulary",$arr);
+                            $this->myfunction->createFileSpeakEnglish($arr['e_name']);
                             $count++;
                         }
                     }else{
                         if($this->Model->isEmptyPharse($arr['e_name'])){                        
                             $this->Model->insert("pharse",$arr);
+                            $this->myfunction->createFileSpeakEnglish($arr['e_name']);
                             $count++;
                         } 
                     } 
@@ -98,6 +100,7 @@ class Index extends CI_Controller{
         $arr['spell'] = strtolower(trim($this->input->post('spell')));
         $arr['category'] = $this->input->post('category');
         $arr['type'] = $this->input->post('type');
+        $this->myfunction->createFileSpeakEnglish($arr['e_name']);
         if($this->Model->isEmptyVocabulary($arr['e_name'],$arr['type'])){
             $this->Model->insert("vocabulary",$arr);
             echo json_encode(array("err"=>0,"msg"=> "Thêm từ vựng thành công"));

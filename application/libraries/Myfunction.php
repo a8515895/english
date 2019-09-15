@@ -1,4 +1,13 @@
 <?php
+require 'vendor/autoload.php';
+
+# Imports the Google Cloud client library
+use Google\Cloud\TextToSpeech\V1\AudioConfig;
+use Google\Cloud\TextToSpeech\V1\AudioEncoding;
+use Google\Cloud\TextToSpeech\V1\SsmlVoiceGender;
+use Google\Cloud\TextToSpeech\V1\SynthesisInput;
+use Google\Cloud\TextToSpeech\V1\TextToSpeechClient;
+use Google\Cloud\TextToSpeech\V1\VoiceSelectionParams;
 class Myfunction{    
     protected $CI;
     private $_key = "huynhanhkhoa_28/09/1995@sega-group.com";
@@ -65,5 +74,66 @@ class Myfunction{
             'data' => $table,
         );
         return $item;
+    }
+    function speakEnglish($word){
+        if(!file_exists("public/audio/".$word.".mp3")){
+            putenv('GOOGLE_APPLICATION_CREDENTIALS=sega-5ceef964c1a9.json');
+            $client = new TextToSpeechClient();
+            // sets text to be synthesised
+            $synthesisInputText = (new SynthesisInput())
+                ->setText($word);    
+            // build the voice request, select the language code ("en-US") and the ssml
+            // voice gender
+            $voice = (new VoiceSelectionParams())
+                ->setLanguageCode('en-US')
+                ->setSsmlGender(SsmlVoiceGender::FEMALE);
+            // Effects profile
+            $effectsProfileId = "telephony-class-application";
+    
+            // select the type of audio file you want returned
+            $audioConfig = (new AudioConfig())
+                ->setAudioEncoding(AudioEncoding::MP3)
+                ->setEffectsProfileId(array($effectsProfileId));    
+            // perform text-to-speech request on the text input with selected voice
+            // parameters and audio file type
+            $response = $client->synthesizeSpeech($synthesisInputText, $voice, $audioConfig);
+            $audioContent = $response->getAudioContent();    
+            // the response's audioContent is binary
+            file_put_contents("public/audio/".$word.".mp3", $audioContent);
+        }
+        return
+        '
+            <span class="span-speak-english" onclick="speakEnglish(this)">
+                <i class="fas fa-volume-up"></i>
+                <audio style="display : none" controls>
+                    <source src="'.base_url().'/public/audio/'.$word.'.mp3" type="audio/mpeg">
+                </audio>
+            </span>
+        ';
+    }
+    function createFileSpeakEnglish(){
+        putenv('GOOGLE_APPLICATION_CREDENTIALS=sega-5ceef964c1a9.json');
+        $client = new TextToSpeechClient();
+        // sets text to be synthesised
+        $synthesisInputText = (new SynthesisInput())
+            ->setText($word);    
+        // build the voice request, select the language code ("en-US") and the ssml
+        // voice gender
+        $voice = (new VoiceSelectionParams())
+            ->setLanguageCode('en-US')
+            ->setSsmlGender(SsmlVoiceGender::FEMALE);
+        // Effects profile
+        $effectsProfileId = "telephony-class-application";
+
+        // select the type of audio file you want returned
+        $audioConfig = (new AudioConfig())
+            ->setAudioEncoding(AudioEncoding::MP3)
+            ->setEffectsProfileId(array($effectsProfileId));    
+        // perform text-to-speech request on the text input with selected voice
+        // parameters and audio file type
+        $response = $client->synthesizeSpeech($synthesisInputText, $voice, $audioConfig);
+        $audioContent = $response->getAudioContent();    
+        // the response's audioContent is binary
+        file_put_contents("public/audio/".$word.".mp3", $audioContent);
     }
 }

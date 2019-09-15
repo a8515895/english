@@ -5,24 +5,65 @@
 </head>
 <body>
     <?php $this->load->view('header'); ?>
-    <section class="container body-section">
+    <section class="container body-section">      
         <h3>Danh sách bài tập</h3>
         <hr/>
-        <table class="table table-borderless table-dark">
-            <thead>
+        <div class="row">
+            <div class="col-3">
+                <select class="form-control" id="list-lession">
+                    <option value="">-- Mời chọn bài học</option>
+                    <?php foreach($lessions as $lession){ ?>
+                        <option value="<?=$lession['id']?>"><?=$lession['name']?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-3">
+            <div class="form-check">
+                <label class="form-check-label" for="onlyListen">
+                    <input class="form-check-input" type="checkbox" name="onlyListen" id="onlyListen" value="onlyListen">
+                    Chỉ có âm thanh
+                </label>
+            </div>
+            </div>
+        </div>
+        <div class="row" id="table-lession-table">
+            <table id="table-exercise-normal" class="table table-borderless table-dark">
+                <thead>
+                    <tr>
+                        <th>Bài kiểm tra</th>
+                        <th>Số câu</th>
+                    </tr>
+                </thead>
+                <?php foreach($excercises as $excercises){ ?>
                 <tr>
-                    <th>Bài kiểm tra</th>
-                    <th>Số câu</th>
+                    <td><a data-id="<?=$excercises['id']?>" class="exercise-detail-href" href="<?=base_url("exercise-detail/".$excercises['id'])?>"><?=$excercises['name']?></a></td>
+                    <td><?=$excercises['count']?></td>
                 </tr>
-            </thead>
-            <?php foreach($excercises as $excercises){ ?>
-            <tr>
-                <td><a href="<?=base_url("exercise-detail/".$excercises['id'])?>"><?=$excercises['name']?></a></td>
-                <td><?=$excercises['count']?></td>
-            </tr>
-            <?php } ?>
-        </table>
+                <?php } ?>
+            </table>
+        </div>
     </section>
 </body>
 </html>
 <?php $this->load->view('script'); ?>
+<script>
+    $(document).ready(function(){
+        $("#list-lession").change(function(){
+            $.get(url+"home/load_list_exercise",{val : $(this).val()},function(kq){
+                $("#table-lession-table").html(kq);
+            })
+        })
+        $("#onlyListen").click(function(){
+            let check = $(this)[0];
+            $(".exercise-detail-href").each(function(e){
+                let a = $(this)[0];
+                let id = $(a).data("id");
+                if($(check).prop("checked")){
+                    $(a).attr("href",url+"exercise-detail/"+id+"?listen=true")
+                }else{
+                    $(a).attr("href",url+"exercise-detail/"+id)
+                }
+            })
+        })
+    })
+</script>

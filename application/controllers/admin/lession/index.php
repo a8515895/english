@@ -10,6 +10,7 @@ class Index extends CI_Controller{
     function index(){
         $data['href'] = 'lession';
         $data['action'] = $this->input->get('action');
+        $data['id'] = $this->input->get('id');
         $this->load->view('admin/admin',$data);
     }
     function indexAjax(){
@@ -27,6 +28,46 @@ class Index extends CI_Controller{
     function loadCreateExercise(){
         $data["title"] = "Tạo nhanh bài tập";
         $this->load->view("admin/lession/createExercise",$data);
+    }
+    function createExercise(){
+        $val = $this->input->post("val");
+        if($val <= 0) $val = 1;
+        $id = $this->input->post("id");
+        $lession_name = $this->Model->query("lession",["where"=>["id"=>$id],"first_row"=>true])->name;
+        $lession_detail = $this->Model->query("lession_detail",["where"=>["id"=>$id]]);
+        $total_vocabulary = count($lession_detail);
+        $class = [];
+        $arr = [];
+        $lession = [];        
+        foreach($lession_detail as $it){
+            $class[$it['class']][] = $it['vocabulary_id'];
+        }
+        foreach(array_keys($class) as $it){
+            $arr = array_merge($arr,$this->Model->query($it,["where_in"=>["id"=>$class[$it]]]));
+        }
+        
+        $arr = $this->randomVocabulary($arr);
+        $eachLession = floor(count($arr)/$val);
+        $i = 0;
+        $lession[$i]= [];
+        foreach($arr as $it){
+            if(count($lession[$i]) > $eachLession){
+                $i++;
+            }
+            $lession[$i][] = $it;
+        }
+        foreach($lession as $k=>$it){
+            $id_exercise = $this->Model->insert("exercise",["count"=>count($it),"lession"=>$id,"name"=>"Bài tập số $k cho bài học ".$lession_name,"student"=>$this->session->userdata("id")]);
+            foreach($it as $val){
+                $this->Model->insert(
+                    "exercise_detail",[
+                    "vocabulary_id"=>$val['id'],
+                    "id"=>$id_exercise,
+                    "class"=> empty($val['type']) ? "pharse" : "vocabulary"
+                ]);
+            }
+        }
+        echo json_encode(array("err"=>0,"msg"=>"Thêm thành công"));
     }
     function loadTable(){
         $data['title'] = 'Bài học';
@@ -104,6 +145,28 @@ class Index extends CI_Controller{
             $new_arr[] = $arr[$it];
         }        
         echo json_encode($new_arr);
+    }
+    function randomVocabulary($arr){
+        $max = count($arr);
+        $tmp_arr = [];
+        $new_arr = [];
+        if($max > count($arr)) $max = count($arr);
+        while(count($tmp_arr)<$max){
+            $numbers = rand(0, (count($arr)-1));
+            if(empty($tmp_arr)){
+                $tmp_arr[] = $numbers;
+            }else{
+                $check = true;
+                foreach($tmp_arr as $it){
+                    if($numbers == $it) $check = false;
+                }
+                if($check) $tmp_arr[] = $numbers;
+            }
+        }
+        foreach($tmp_arr as $it){
+            $new_arr[] = $arr[$it];
+        }        
+        return $new_arr;
     }
     function delete(){
         $id = $this->uri->segment(4);

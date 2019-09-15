@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 class Home extends CI_Controller{
     function __construct(){
         parent::__construct();
@@ -16,11 +17,13 @@ class Home extends CI_Controller{
     function exercise(){
         $data['excercises'] = $this->Model->getAllTable('exercise','','',"created_at desc");
         $data['avatar'] =  $this->session->userdata("avatar");
+        $data['lessions'] = $this->Model->getAllTable("lession",'','',"created_at desc");
         $this->load->view('load_exercise',$data);
     }
     function exercise_detail(){
         $data['avatar'] =  $this->session->userdata("avatar");
         $id = $this->uri->segment(2);
+        $data['isListen'] = empty($this->input->get("listen"))?'':$this->input->get("listen");
         $data['excercises'] = $this->Model->getAllTable('exercise_detail','','',"created_at ASC",["id"=>$id]);
         $data['name'] = $this->Model->getTable('exercise',['id'=>$id])->name;
         $arrVol = [];
@@ -94,6 +97,15 @@ class Home extends CI_Controller{
         }
         return $new_arr;
     }
+    function load_list_exercise(){
+        $val = $this->input->get("val");
+        $con = [];
+        if(!empty($val)){
+            $con = ["lession"=>$val];
+        }
+        $data['excercises'] = $this->Model->getAllTable('exercise','','',"created_at desc",$con);
+        return $this->load->view("load-list-exercise",$data);
+    }
     function saveLog(){
         $logs = $this->input->post('logs');
         $data = $this->input->post('data');
@@ -112,4 +124,5 @@ class Home extends CI_Controller{
     function not_found(){
         echo "404 NOT FOUND";
     }
+
 }
