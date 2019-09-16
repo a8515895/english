@@ -7,7 +7,6 @@ class Test extends CI_Controller{
         $this->load->library('myfunction');
     }
     function index(){
-        echo "test";
-//        $this->load->view('load_home');
+        echo "test2";
     }
 }
