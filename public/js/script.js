@@ -119,23 +119,13 @@ function confirmDelete(it){
     }
     return false;
 }
-function loadTableVocabularyInExcercise(data = {}){       
-    data['vocabulary'] = $(".table-vocabulary").data('vocabulary');
-    data['class'] = $(".table-vocabulary").data('class');
-    data['type'] = $(".table-vocabulary").data('type');
-    data['category'] = $(".table-vocabulary").data('category');
-    $('.table-vocabulary').load(url+'admin/ajax/exercise/loadtable',{filter : data})
-}
 
-function resetExcercise(){
+
+function reset(type="exercise"){
     list_vocabulary = [];
     $("#content-table-result").html('');
-    $("#name-excercise").val('');
-}
-function resetLession(){
-    list_vocabulary = [];
-    $("#content-table-result").html('');
-    $("#name-lession").val('');
+    $("#name-"+type).val('');
+    $(".count-vocabulary-in").html(list_vocabulary.length);
 }
 function speakEnglish(it){
     let audio = $(it).find("audio");

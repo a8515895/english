@@ -633,7 +633,7 @@ class CI_Javascript {
 	/**
 	 * External
 	 *
-	 * Outputs a <script> tag with the source as an external js file
+	 * Outputs a <script type="text/javascript"> tag with the source as an external js file
 	 *
 	 * @param	string	$external_file
 	 * @param	bool	$relative
@@ -671,7 +671,7 @@ class CI_Javascript {
 	/**
 	 * Inline
 	 *
-	 * Outputs a <script> tag
+	 * Outputs a <script type="text/javascript"> tag
 	 *
 	 * @param	string	The element to attach the event to
 	 * @param	bool	If a CDATA section should be added
@@ -689,7 +689,7 @@ class CI_Javascript {
 	/**
 	 * Open Script
 	 *
-	 * Outputs an opening <script>
+	 * Outputs an opening <script type="text/javascript">
 	 *
 	 * @param	string
 	 * @return	string

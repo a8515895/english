@@ -72,7 +72,10 @@ class Table extends CI_Controller
                 case 'exercise' :
                     foreach ($data as $val){     
                         $val['active'] = ($val['active'] == 1) ? "Kích hoạt" : "Chưa kích hoạt";
-                        $val['action'] ="<a href='javascript:void(0)' data-href='".base_url()."admin/exercise/delete/".$val['id']."' onclick='confirmDelete(this)'>Delete</a>";
+                        $val['action'] ="
+                            <a href='".base_url()."admin/exercise?action=edit&id=".$val['id']."'>Edit</a> |
+                            <a href='javascript:void(0)' data-href='".base_url()."admin/exercise/delete/".$val['id']."' onclick='confirmDelete(this)'>Delete</a>
+                        ";
                         $table[] = $val;  
                     }
                     break;

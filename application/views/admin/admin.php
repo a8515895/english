@@ -54,7 +54,7 @@
 </body>
 </html>
 <?php $this->load->view('admin/script'); ?>
-<script>
+<script type="text/javascript">
     $(document).ready(function(){
         <?php 
             if(empty($href)) echo "let first_href;";

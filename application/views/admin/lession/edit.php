@@ -97,7 +97,7 @@
         </div>
     </div>
 </div>
-<script>        
+<script type="text/javascript">        
     let list_vocabulary = [];        
     $(document).ready(function(){
         $(".table-vocabulary,.content-table-result").slimScroll({

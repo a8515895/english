@@ -34,10 +34,10 @@
                         <th>Số câu</th>
                     </tr>
                 </thead>
-                <?php foreach($excercises as $excercises){ ?>
+                <?php foreach($exercises as $exercises){ ?>
                 <tr>
-                    <td><a data-id="<?=$excercises['id']?>" class="exercise-detail-href" href="<?=base_url("exercise-detail/".$excercises['id'])?>"><?=$excercises['name']?></a></td>
-                    <td><?=$excercises['count']?></td>
+                    <td><a data-id="<?=$exercises['id']?>" class="exercise-detail-href" href="<?=base_url("exercise-detail/".$exercises['id'])?>"><?=$exercises['name']?></a></td>
+                    <td><?=$exercises['count']?></td>
                 </tr>
                 <?php } ?>
             </table>
@@ -46,7 +46,7 @@
 </body>
 </html>
 <?php $this->load->view('script'); ?>
-<script>
+<script type="text/javascript">
     $(document).ready(function(){
         $("#list-lession").change(function(){
             $.get(url+"home/load_list_exercise",{val : $(this).val()},function(kq){

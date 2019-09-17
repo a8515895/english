@@ -91,6 +91,17 @@
 .content-table-result{
     padding: 10px;
 }
-.name-excercise,.name-lession{
+.name-exercise,.name-lession{
     padding: 10px
+}
+.count-vocabulary-in{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    background: #bd2130;
+    border-radius: 100%;
+    width: 27px;
+    height: 27px;
+    color: #fff;
 }

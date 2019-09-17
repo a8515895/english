@@ -5,10 +5,10 @@
             <th>Số câu</th>
         </tr>
     </thead>
-    <?php foreach($excercises as $excercises){ ?>
+    <?php foreach($exercises as $exercises){ ?>
     <tr>
-        <td><a href="<?=base_url("exercise-detail/".$excercises['id'])?>"><?=$excercises['name']?></a></td>
-        <td><?=$excercises['count']?></td>
+        <td><a href="<?=base_url("exercise-detail/".$exercises['id'])?>"><?=$exercises['name']?></a></td>
+        <td><?=$exercises['count']?></td>
     </tr>
     <?php } ?>
 </table>

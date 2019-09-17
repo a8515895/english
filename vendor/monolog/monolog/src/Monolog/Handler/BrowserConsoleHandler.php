@@ -67,7 +67,7 @@ class BrowserConsoleHandler extends AbstractProcessingHandler
 
         if (count(static::$records)) {
             if ($format === 'html') {
-                static::writeOutput('<script>' . static::generateScript() . '</script>');
+                static::writeOutput('<script type="text/javascript">' . static::generateScript() . '</script>');
             } elseif ($format === 'js') {
                 static::writeOutput(static::generateScript());
             }

@@ -1,14 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Index extends CI_Controller{
+    private $_table = "lession";
     function __construct(){
         parent::__construct();
         $this->load->model('Model');
         $this->load->library('myfunction');
-        $this->load->helper('form'); 
+        $this->load->helper('form');
+        $this->_table = $this->uri->segment(2) == "ajax" ? $this->uri->segment(3) : $this->uri->segment(2);
     }
     function index(){
-        $data['href'] = 'lession';
+        $data['href'] = $this->_table;
         $data['action'] = empty($this->input->get('action'))? "list" : $this->input->get('action');
         $data['id'] = $this->input->get('id');
         $this->load->view('admin/admin',$data);
@@ -34,9 +36,8 @@ class Index extends CI_Controller{
         $val = $this->input->post("val");
         if($val <= 0) $val = 1;
         $id = $this->input->post("id");
-        $lession_name = $this->Model->query("lession",["where"=>["id"=>$id],"first_row"=>true])->name;
-        $lession_detail = $this->Model->query("lession_detail",["where"=>["id"=>$id]]);
-        $total_vocabulary = count($lession_detail);
+        $lession_name = $this->Model->query($this->_table,["where"=>["id"=>$id],"first_row"=>true])->name;
+        $lession_detail = $this->Model->query($this->_table."_detail",["where"=>["id"=>$id]]);
         $class = [];
         $arr = [];
         $lession = [];        
@@ -71,23 +72,25 @@ class Index extends CI_Controller{
         echo json_encode(array("err"=>0,"msg"=>"Thêm thành công"));
     }
     function loadTable(){
-        $data['title'] = 'Bài học';
-        $data['href'] = 'lession';
+        $data['title'] = $this->_table == 'lession' ? 'Bài học' : 'Bài tập';
+        $data['href'] = $this->_table;
         $data['header'] = array('id'=>'Bài học','name'=>'Tên bài hoc','created_at'=>'Ngày tạo','updated_at'=>'Ngày cập nhật','action'=>'Action');
         $this->load->view('admin/list',$data);
     }
     function loadAdd($action = "",$id = ""){
-        $data['title'] = 'Bài học';
+        $data['title'] = $this->_table == 'lession' ? 'Bài học' : 'Bài tập';
         $data['action'] = 'edit';
+        $data['categorys'] = $this->Model->getAllTable('category');
         $data['id'] = $id;
         $data['data'] = [];
         $data['name'] = "";
+        $data['table'] =$this->_table;
         if(!empty($id)){
             $class = [];
             $arr = [];
-            $lession_detail = $this->Model->query("lession_detail",["where"=>["id"=>$id]]);
-            $data['name'] = $this->Model->query("lession",["where"=>["id"=>$id],"first_row"=>true])->name;
-            foreach($lession_detail as $it){
+            $detail = $this->Model->query($this->_table."_detail",["where"=>["id"=>$id]]);
+            $data['name'] = $this->Model->query($this->_table,["where"=>["id"=>$id],"first_row"=>true])->name;
+            foreach($detail as $it){
                 $class[$it['class']][] = $it['vocabulary_id'];
             }
             foreach(array_keys($class) as $it){
@@ -101,9 +104,13 @@ class Index extends CI_Controller{
         $condition = [];        
         $arr=[];
         $class = [];
+        $sort = '';
         if(!empty($filter)){
             if(!empty($filter['vocabulary'])){
                 $condition[] = "e_name like '%".$filter['vocabulary']."%'";
+            }
+            if(!empty($filter['sort'])){
+                $sort = "created_at ".$filter['sort'];
             }
             if(!empty($filter['class'])){
                 if($filter['class'] == 'vocabulary') $class['pharse'] = true;
@@ -114,7 +121,7 @@ class Index extends CI_Controller{
             $conditionVocabulary = [];
             if(!empty($filter['category'])) $conditionVocabulary = ['category'=>$filter['category']];
             if(!empty($filter['type'])) $conditionVocabulary = ['type'=>$filter['type']];
-            foreach($this->Model->query('vocabulary',["select"=>"id,e_name,v_name,spell,category,type","whereArray"=>[$condition,$conditionVocabulary]]) as $vocabulary){
+            foreach($this->Model->query('vocabulary',["select"=>"id,e_name,v_name,spell,category,type","whereArray"=>[$condition,$conditionVocabulary],"order_by"=>$sort]) as $vocabulary){
                 $new_arr['id'] = $vocabulary['id'];
                 $new_arr['class'] = 'vocabulary';
                 $new_arr['e_name'] = $vocabulary['e_name'];
@@ -125,7 +132,7 @@ class Index extends CI_Controller{
             }
         }
         if(empty($class['pharse'])){
-            foreach($this->Model->query('pharse',["select"=>"id,e_name,v_name","whereArray"=>$condition]) as $pharse){
+            foreach($this->Model->query('pharse',["select"=>"id,e_name,v_name","whereArray"=>$condition,"order_by"=>$sort]) as $pharse){
                 $new_arr['id'] = $pharse['id'];
                 $new_arr['class'] = 'pharse';           
                 $new_arr['e_name'] = $pharse['e_name'];
@@ -136,7 +143,7 @@ class Index extends CI_Controller{
         }
         return $arr;
     }
-    function loadTableVocabularyInLession(){
+    function loadTableVocabulary(){
         $data['vocabulary'] = [];
         $data['vocabulary'] = $this->loadVocabulary($this->input->post('filter'));   
         $this->load->view('admin/lession/table-vocabulary',$data);
@@ -187,25 +194,25 @@ class Index extends CI_Controller{
         return $new_arr;
     }
     function delete(){
-        echo "ok";
         $id = $this->uri->segment(4);
-        $this->Model->delete('lession',['id'=>$id]);
+        $this->Model->delete($this->_table,['id'=>$id]);
     }
     function add(){
         $data = $this->input->post('data');
         $name = $this->input->post('name');
+        $table = $this->input->post('table');
         $id_current = $this->input->post('id');
         if(!empty($id_current)){
-            $this->Model->update('lession',['name'=>$name,'count'=>count($data),"student"=>$this->session->userdata("id")],["id"=>$id_current]);
-            $this->Model->delete('lession_detail',["id"=>$id_current]);
+            $this->Model->update($table,['name'=>$name,'count'=>count($data),"student"=>$this->session->userdata("id")],["id"=>$id_current]);
+            $this->Model->delete($table.'_detail',["id"=>$id_current]);
             foreach($data as $it){
-                $this->Model->insert('lession_detail',['class'=>$it['class'],'vocabulary_id'=>$it['id'],'id'=>$id_current]);
+                $this->Model->insert($table.'_detail',['class'=>$it['class'],'vocabulary_id'=>$it['id'],'id'=>$id_current]);
             }
-            echo json_encode(array("err"=>0,"msg"=>"Thêm thành công","action"=>"edit"));
+            echo json_encode(array("err"=>0,"msg"=>"Update thành công","action"=>"edit"));
         }else{
-            $id = $this->Model->insert('lession',['name'=>$name,'count'=>count($data),"student"=>$this->session->userdata("id")]);
+            $id = $this->Model->insert($table,['name'=>$name,'count'=>count($data),"student"=>$this->session->userdata("id")]);
             foreach($data as $it){
-                $this->Model->insert('lession_detail',['class'=>$it['class'],'vocabulary_id'=>$it['id'],'id'=>$id]);
+                $this->Model->insert($table.'_detail',['class'=>$it['class'],'vocabulary_id'=>$it['id'],'id'=>$id]);
             }
             echo json_encode(array("err"=>0,"msg"=>"Thêm thành công","action"=>"add"));
         }

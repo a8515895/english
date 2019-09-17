@@ -62,7 +62,7 @@ class Model extends CI_Model{
             $query->group_by($option['group_by']);
         }
         if(!empty($option['order_by'])){
-            $query->order_by($option['order_by'],"desc");
+            $query->order_by($option['order_by']);
         }
         if(!empty($option['where_in'])){
             if(is_array($option['where_in'])){

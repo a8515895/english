@@ -6,26 +6,3 @@
         </tr>
     <?php } ?>
 </table>
-<script type="text/javascript">
-    $('#search-vocabulary-input').on('keyup',function(){
-        let val = $(this).val();
-        $(".table-vocabulary").data('vocabulary',val);
-        loadTableVocabularyInExcercise()
-    })
-    $("#select-class").on("change",function(){
-        let val = $(this).val();
-        $(".table-vocabulary").data('class',val);
-        loadTableVocabularyInExcercise()
-    })
-    $("#select-type").on("change",function(){
-        let val = $(this).val();
-        $(".table-vocabulary").data('type',val);
-        loadTableVocabularyInExcercise()
-    })
-    $("#select-category").on("change",function(){
-        let val = $(this).val();
-        $(".table-vocabulary").data('category',val);
-        loadTableVocabularyInExcercise()
-    })
-
-</script>

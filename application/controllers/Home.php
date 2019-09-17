@@ -15,7 +15,7 @@ class Home extends CI_Controller{
         $this->load->view('load_home',$data);
     }
     function exercise(){
-        $data['excercises'] = $this->Model->getAllTable('exercise','','',"created_at desc");
+        $data['exercises'] = $this->Model->getAllTable('exercise','','',"created_at desc");
         $data['avatar'] =  $this->session->userdata("avatar");
         $data['lessions'] = $this->Model->getAllTable("lession",'','',"created_at desc");
         $this->load->view('load_exercise',$data);
@@ -24,12 +24,12 @@ class Home extends CI_Controller{
         $data['avatar'] =  $this->session->userdata("avatar");
         $id = $this->uri->segment(2);
         $data['isListen'] = empty($this->input->get("listen"))?'':$this->input->get("listen");
-        $data['excercises'] = $this->Model->getAllTable('exercise_detail','','',"created_at ASC",["id"=>$id]);
+        $data['exercises'] = $this->Model->getAllTable('exercise_detail','','',"created_at ASC",["id"=>$id]);
         $data['name'] = $this->Model->getTable('exercise',['id'=>$id])->name;
         $arrVol = [];
         $arrPharse = [];
         $arr = [];
-        foreach($data['excercises'] as $it){
+        foreach($data['exercises'] as $it){
             if($it['class'] == 'vocabulary'){
                 $arrVol[] = $it['vocabulary_id'];
             }else{
@@ -42,7 +42,7 @@ class Home extends CI_Controller{
         if(!empty($arrPharse)){
             $arr=array_merge($arr,$this->Model->query("pharse",["where_in"=>["id"=> $arrPharse],"select"=>"id,e_name,v_name"]));
         }
-        $data['test'] = $this->randomExcercise($arr);
+        $data['test'] = $this->randomExercise($arr);
         $data['exercise'] = $id;
         $this->load->view('load_exercise_detail',$data);
     }
@@ -72,11 +72,11 @@ class Home extends CI_Controller{
         if(!empty($arrPharse)){
             $arr=array_merge($arr,$this->Model->query("pharse",["where_in"=>["id"=> $arrPharse],"select"=>"id,e_name,v_name"]));
         }
-        $data['test'] = $this->randomExcercise($arr);
+        $data['test'] = $this->randomExercise($arr);
         $data['lession'] = $id;
         $this->load->view('load_lession_detail',$data);
     }
-    function randomExcercise($arr){
+    function randomExercise($arr){
         $max = count($arr);
         $tmp_arr = [];
         $new_arr = [];
@@ -103,7 +103,7 @@ class Home extends CI_Controller{
         if(!empty($val)){
             $con = ["lession"=>$val];
         }
-        $data['excercises'] = $this->Model->getAllTable('exercise','','',"created_at desc",$con);
+        $data['exercises'] = $this->Model->getAllTable('exercise','','',"created_at desc",$con);
         return $this->load->view("load-list-exercise",$data);
     }
     function saveLog(){

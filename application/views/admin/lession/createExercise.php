@@ -18,7 +18,7 @@
         <div class="col-4"><button id="createExerciseInLession" type="button" class="btn btn-primary" >Tạo bài tập</button></div>
     </div>
 </div>
-<script>
+<script type="text/javascript">
     $("#createExerciseInLession").on("click",function(){
         let  urlParams = new URLSearchParams(window.location.search);
         let id = urlParams.get('id');

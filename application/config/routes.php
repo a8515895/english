@@ -66,14 +66,14 @@ $route['admin/lession'] = 'admin/lession/index';
 $route['admin/lession/createExercise'] = 'admin/lession/index/createExercise';
 $route["admin/lession/delete/:num"] = 'admin/lession/index/delete/:num';
 $route['admin/ajax/lession'] = 'admin/lession/index/indexAjax';
+$route['admin/ajax/lession/loadtable'] = 'admin/lession/index/loadTableVocabulary';
 
 $route['admin/pharse'] = 'admin/pharse/index';
 $route['admin/ajax/pharse'] = 'admin/pharse/index/indexAjax';
 
-$route['admin/exercise'] = 'admin/exercise/index';
-$route['admin/ajax/exercise'] = 'admin/exercise/index/indexAjax';
-$route["admin/exercise/delete/:num"] = 'admin/exercise/index/delete/:num';
-$route['admin/ajax/exercise/loadtable'] = 'admin/exercise/index/loadTableVocabularyInExcercise';
+$route['admin/exercise'] = 'admin/lession/index';
+$route['admin/ajax/exercise'] = 'admin/lession/index/indexAjax';
+$route["admin/exercise/delete/:num"] = 'admin/lession/index/delete/:num';
 
 $route['admin/category/table'] = 'admin/category/index/table';
 $route['admin'] = 'admin/admin';

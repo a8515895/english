@@ -30,7 +30,7 @@
 </body>
 </html>
 <?php $this->load->view('script'); ?>
-<script>
+<script type="text/javascript">
     function toggleHide(it,col){
         let show = $(it).data("show");
         console.log(show);

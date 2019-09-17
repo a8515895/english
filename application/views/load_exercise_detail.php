@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-4">
                         <p><input data-id="<?=$t['id']?>" name="input-<?=$t['id']?>-<?php if(!empty($t['type'])) echo 'vocabulary'; else echo 'pharse' ?>" id="input-vocabulary-<?=$t['id']?>" class="input-vocabulary form-control"></p>
-                        <p><button id="btn-vocabulary-<?=$t['id']?>" onclick="nextExcercise(this)" type="button" class="btn btn-primary">Tiếp tục</button></p>
+                        <p><button id="btn-vocabulary-<?=$t['id']?>" onclick="nextExercise(this)" type="button" class="btn btn-primary">Tiếp tục</button></p>
                     </div>
                 </div>
             <?php } ?>
@@ -46,7 +46,7 @@
 </body>
 </html>
 <?php $this->load->view('script'); ?>
-<script>
+<script type="text/javascript">
     let result = {'true' : 0,'false' : 0};
     $(document).ready(function(){
         $(".span-speak-english").first().click();
@@ -58,7 +58,7 @@
             }
         })
     })
-    function nextExcercise(it){
+    function nextExercise(it){
         $('.test-content').removeClass("active");
         let answer = $(it).parents('.test-content').find('input').val();
         let content = $(it).parents('.test-content')
