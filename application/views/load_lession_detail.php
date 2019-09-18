@@ -19,7 +19,10 @@
                 <tbody>
                     <?php foreach($test as $key=>$t){ ?>                
                         <tr>
-                            <td class="col-e-name"><?=$t['e_name']?> <?php if(!empty($vol['type'])) echo '('.$vol['type'].')';?></td>
+                            <td class="col-e-name">
+                                <?=$t['e_name']?> <?php if(!empty($vol['type'])) echo '('.$vol['type'].')';?>
+                                <?=$this->myfunction->speakEnglish($t['e_name'])?>
+                            </td>
                             <td class="col-v-name"><?=$t['v_name']?></td>
                         </tr>
                     <?php } ?>

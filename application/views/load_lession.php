@@ -17,7 +17,9 @@
             </thead>
             <?php foreach($lessions as $lession){ ?>
             <tr>
-                <td><a href="<?=base_url("lession-detail/".$lession['id'])?>"><?=$lession['name']?></a></td>
+                <td>
+                    <a href="<?=base_url("lession-detail/".$lession['id'])?>"><?=$lession['name']?></a>
+                </td>
                 <td><?=$lession['count']?></td>
             </tr>
             <?php } ?>
