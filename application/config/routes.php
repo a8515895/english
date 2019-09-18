@@ -60,6 +60,7 @@ $route['admin/ajax/vocabulary'] = 'admin/vocabulary/index/indexAjax';
 
 $route['admin/result'] = 'admin/result/index';
 $route['admin/result/edit/:num'] = 'admin/result/index/edit';
+$route["admin/result/delete/:num"] = 'admin/result/index/delete/:num';
 $route['admin/ajax/result'] = 'admin/result/index/indexAjax';
 
 $route['admin/lession'] = 'admin/lession/index';

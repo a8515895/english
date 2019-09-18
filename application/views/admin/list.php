@@ -26,8 +26,9 @@
                         </div>
                     </div>
                 <?php } ?>
-                <button  type="button" class="btn btn-success" data-toggle="modal" onclick="loadAjaxDefault('add')">Thêm <?=$title?></button>
-
+                <?php if($href != 'result'){ ?>
+                    <button  type="button" class="btn btn-success" data-toggle="modal" onclick="loadAjaxDefault('add')">Thêm <?=$title?></button>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -43,8 +44,7 @@
         </tr>
         </thead>
     </table>
-    <script type="text/javascript">
-        
+    <script type="text/javascript">        
         $(document).ready(function(){
             $('#table-simple-<?=$href?>').dataTable( {
                 processing: true,

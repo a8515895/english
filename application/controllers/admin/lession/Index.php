@@ -112,6 +112,14 @@ class Index extends CI_Controller{
             if(!empty($filter['sort'])){
                 $sort = "created_at ".$filter['sort'];
             }
+            if(!empty($filter['date'])){
+                $start = explode("_",$filter['date'])[0];
+                $end = explode("_",$filter['date'])[1];
+                if($start == $end)
+                $condition[] = "DATE(created_at) = '$start'";
+                else
+                $condition[] = "DATE(created_at) >= '$start' AND DATE(created_at) <= '$end'";
+            }
             if(!empty($filter['class'])){
                 if($filter['class'] == 'vocabulary') $class['pharse'] = true;
                 else $class['vocabulary'] = true;

@@ -77,11 +77,14 @@
                             <input id="search-vocabulary-input" type="text" class="form-control" placeholder="Vocabulary or Pharse" aria-label="Vocabulary or Pharse" aria-describedby="basic-addon1" onkeyup="onFilter(this,'vocabulary')">
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                            <i class="fa fa-calendar"></i>&nbsp;
-                            <span></span> <i class="fa fa-caret-down"></i>
-                        </div>                    
+                    <div class="col-2">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="check-disable-date">
+                            <label class="custom-control-label" for="check-disable-date">Sử dụng ngày</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="daterange-input" type="text" name="daterange" disabled/>                 
                     </div>
                 </div>
             </div>
@@ -119,7 +122,7 @@
                     </div>
                 </div>
             </div>
-            <div class="table-vocabulary" data-sort="" data-vocabulary="" data-class="" data-type="" data-category="">
+            <div class="table-vocabulary" data-date="" data-sort="" data-vocabulary="" data-class="" data-type="" data-category="">
 
             </div>
         </div>
@@ -137,6 +140,8 @@
         <?php } ?>   
     <?php } ?>     
     $(document).ready(function(){
+        let startDate = moment().startOf('hour').format('YYYY-MM-DD')
+        let endDate = moment().startOf('hour').format('YYYY-MM-DD')
         $(".count-vocabulary-in").html(list_vocabulary.length);
         $(".table-vocabulary,.content-table-result").slimScroll({
             height : 'calc(100% - 100px)'
@@ -183,20 +188,30 @@
                 }            
             })
         }) 
-        $('input[name="dates"]').daterangepicker();
-        $('#reportrange').daterangepicker({
-            startDate: start,
-            endDate: end,
-            ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        $('#daterange-input').daterangepicker({
+            opens: 'left',
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour'),
+            locale: {
+                format: 'DD/MM/YYYY'
             }
-        }, cb);
-        cb(start, end);
+        }, function(start, end, label) {            
+            $(".table-vocabulary").data('date',start.format('YYYY-MM-DD')+'_'+end.format('YYYY-MM-DD'));
+            startDate = start.format('YYYY-MM-DD');
+            endDate = end.format('YYYY-MM-DD');
+            loadTableVocabularyIn();
+        });
+        $("#check-disable-date").on("click",function(){
+            let it = $(this)[0];
+            if(!$(it).prop('checked')){
+                $("#daterange-input").prop("disabled",true)
+                $(".table-vocabulary").data('date','');
+            }else{
+                $("#daterange-input").prop("disabled",false)
+                $(".table-vocabulary").data('date',startDate+'_'+endDate);
+            }
+            loadTableVocabularyIn();
+        })
     })
     function loadTableVocabularyIn(data = {}){  
         data['vocabulary'] = $(".table-vocabulary").data('vocabulary');
@@ -204,6 +219,7 @@
         data['type'] = $(".table-vocabulary").data('type');
         data['category'] = $(".table-vocabulary").data('category');
         data['sort'] = $(".table-vocabulary").data('sort');
+        data['date'] = $(".table-vocabulary").data('date');
         $('.table-vocabulary').load(url+'admin/ajax/lession/loadtable',{filter : data})
     }    
     function add(table = "exercise"){

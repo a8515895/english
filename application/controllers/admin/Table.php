@@ -65,7 +65,10 @@ class Table extends CI_Controller
                     break;
                 case 'result' :
                     foreach ($data as $val){
-                        $val['action'] ="<a href='".base_url()."admin/result?action=edit&id=".$val['id']."'>Detail</a>";
+                        $val['action'] ="
+                            <a href='".base_url()."admin/result?action=edit&id=".$val['id']."'>Detail</a> |
+                            <a onclick='confirmDelete(this)' href='javascript:void(0)' data-href='".base_url()."admin/result/delete/".$val['id']."'>Delete</a>     
+                        ";
                         $table[] = $val; 
                     }
                     break;

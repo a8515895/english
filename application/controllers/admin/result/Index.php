@@ -25,8 +25,13 @@ class Index extends CI_Controller{
     function loadTable(){
         $data['title'] = 'Kết quả';
         $data['href'] = 'result';
+        $data['list_lession'] = $this->Model->query("lession",["where"=>["student"=>$this->session->userdata("id")]]);
         $data['header'] = array('id'=>'Kết quả','exercise'=>'Bài tập','point'=>'Số điểm','true'=>'Số câu đúng','false'=>'Số câu sai','action'=>'Detail');
         $this->load->view('admin/list',$data);
+    }
+    function delete(){
+        $id = $this->uri->segment(4);
+        $this->Model->delete('result_log',['id'=>$id]);
     }
     function loadEdit(){    
         $data['title'] = 'Kết quả';    

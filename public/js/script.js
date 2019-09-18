@@ -131,3 +131,6 @@ function speakEnglish(it){
     let audio = $(it).find("audio");
     audio[0].play();
 }
+function lessionChangeInResult(){
+    
+}
