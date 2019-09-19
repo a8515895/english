@@ -25,7 +25,9 @@ class Home extends CI_Controller{
         $id = $this->uri->segment(2);
         $data['isListen'] = empty($this->input->get("listen"))?'':$this->input->get("listen");
         $data['exercises'] = $this->Model->getAllTable('exercise_detail','','',"created_at ASC",["id"=>$id]);
-        $data['name'] = $this->Model->getTable('exercise',['id'=>$id])->name;
+        $current_exercise = $this->Model->getTable('exercise',['id'=>$id]);
+        $data['name'] = $current_exercise->name;
+        $data['lession'] = $current_exercise->lession;
         $arrVol = [];
         $arrPharse = [];
         $arr = [];

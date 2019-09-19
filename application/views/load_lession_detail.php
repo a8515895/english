@@ -44,7 +44,7 @@
                         <?php foreach($test as $key=>$t){ ?>                
                             <tr>
                                 <td>
-                                    <a href="<?=base_url("exercise-detail/".$t['id'])?>" target="_blank"><?=$t['name']?></a>
+                                    <a href="<?=base_url("exercise-detail/".$t['id'])?>"><?=$t['name']?></a>
                                 </td>
                                 <td><?=$t['count']?></td>
                             </tr>

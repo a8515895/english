@@ -34,9 +34,13 @@
             <div style="" class="result"></div>
         </div>
         <div class="test-button row">
-            <div class="col-4"></div>
             <div class="col-4">
-                <a href="<?=base_url("exercise")?>" class="btn btn-success">Quay về</a>
+                <?php if(!empty($lession)){ ?>
+                    <a href="<?=base_url("lession-detail/".$lession)?>" class="btn btn-success">Quay về DS bài học</a>
+                <?php } ?>
+            </div>
+            <div class="col-4">
+                <a href="<?=base_url("exercise")?>" class="btn btn-danger">Quay về DS bài tập</a>
             </div>
             <div class="col-4">
                 <a href="<?=base_url("exercise-detail/".$exercise)?>" class="btn btn-warning">Làm lại</a>
