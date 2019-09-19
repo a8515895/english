@@ -54,7 +54,8 @@ class Home extends CI_Controller{
     function lession_detail(){
         $data['avatar'] =  $this->session->userdata("avatar");
         $id = $this->uri->segment(2);
-        $data['lessions'] = $this->Model->getAllTable('lession_detail','','',"created_at ASC",["id"=>$id]);
+        $data['lessions'] = $this->Model->getAllTable('lession_detail','','',"created_at desc",["id"=>$id]);
+        $data['test'] = $this->Model->getAllTable('exercise','','',"created_at desc",["lession"=>$id]);
         $data['name'] = $this->Model->getTable('lession',['id'=>$id])->name;
         $arrVol = [];
         $arrPharse = [];
@@ -72,7 +73,7 @@ class Home extends CI_Controller{
         if(!empty($arrPharse)){
             $arr=array_merge($arr,$this->Model->query("pharse",["where_in"=>["id"=> $arrPharse],"select"=>"id,e_name,v_name"]));
         }
-        $data['test'] = $this->randomExercise($arr);
+        $data['lessions'] = $this->randomExercise($arr);
         $data['lession'] = $id;
         $this->load->view('load_lession_detail',$data);
     }
