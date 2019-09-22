@@ -111,7 +111,7 @@ class Myfunction{
             </span>
         ';
     }
-    function createFileSpeakEnglish(){
+    function createFileSpeakEnglish($word){
         putenv('GOOGLE_APPLICATION_CREDENTIALS=sega-5ceef964c1a9.json');
         $client = new TextToSpeechClient();
         // sets text to be synthesised

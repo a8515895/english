@@ -69,7 +69,12 @@
         <div class="col-md lession-vocabulary">
             <div class="search-vocabulary">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-1">
+                        <div class="arrow-push-all-vocabulary" onclick="pushAllVocabularyInto()">
+                            <i class="fas fa-arrow-circle-left fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="col-5">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
@@ -287,5 +292,31 @@
     }
     function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+    function pushAllVocabularyInto(){
+        list_vocabulary = [];
+        list_vocabulary.splice();
+        let data = {};
+        let html = '';
+        $(".table-vocabulary tr").each(function(){
+            
+            data = {
+                id : $(this).data("id"),
+                class : $(this).data("class"),
+                e_name : $(this).data("e"),
+                v_name : $(this).data("v"),
+                type : $(this).data("type"),
+            }
+            list_vocabulary.push({id : data.id,class : data.class})
+            html +=
+            `
+                <tr>
+                    <td>${data.e_name} ${(data.type != null)?"("+data.type+")":""}</td>
+                    <td>${data.v_name}</td>
+                </tr>
+            `;
+        })
+        $(".count-vocabulary-in").html(list_vocabulary.length);
+        $("#content-table-result").html(html);
     }
 </script>
