@@ -105,3 +105,13 @@
     height: 27px;
     color: #fff;
 }
+.arrow-push-all-vocabulary{
+    background: #0a900a;
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    color: #fff;
+    text-align: center;
+    line-height: 3.2;
+    cursor: pointer;
+}
