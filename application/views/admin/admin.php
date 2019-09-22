@@ -27,6 +27,11 @@
                     <i class="fab fa-amilia fa-2x"></i>
                 </a>
             </li>
+            <li data-href="read" data-toggle="tooltip" title="Bài Đọc" data-placement="right">
+                <a  href="javascript:void(0)">
+                    <i class="fas fa-book fa-2x"></i>
+                </a>
+            </li>
             <li data-href="result" data-toggle="tooltip" title="Kết quả" data-placement="right">
                 <a  href="javascript:void(0)">
                     <i class="fas fa-thumbs-up fa-2x"></i>

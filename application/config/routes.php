@@ -69,6 +69,11 @@ $route["admin/lession/delete/:num"] = 'admin/lession/index/delete/:num';
 $route['admin/ajax/lession'] = 'admin/lession/index/indexAjax';
 $route['admin/ajax/lession/loadtable'] = 'admin/lession/index/loadTableVocabulary';
 
+$route['admin/read'] = 'admin/read/index';
+$route['read-detail/:num'] = 'home/exercise_detail/:num';
+$route["admin/read/delete/:num"] = 'admin/read/index/delete/:num';
+$route['admin/ajax/read'] = 'admin/read/index/indexAjax';
+
 $route['admin/pharse'] = 'admin/pharse/index';
 $route['admin/ajax/pharse'] = 'admin/pharse/index/indexAjax';
 

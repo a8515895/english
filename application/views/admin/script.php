@@ -7,6 +7,7 @@
 <script type="text/javascript" src="<?=base_url("public/js/toast.min.js")?>"></script>
 <script type="text/javascript" src="<?=base_url("public/js/script.js")?>"></script>
 <script type="text/javascript" src="<?=base_url("public/plugin/select2/select2.min.js")?>"></script>
+<script type="text/javascript" src="<?=base_url("public/plugin/ckeditor5/ckeditor.js")?>"></script>
 <script type="text/javascript" src="<?=base_url("public/js/slimscroll.min.js")?>"></script>
 <script src="<?=base_url("public/plugin/momentjs/moment.min.js")?>"></script>
 <script src="<?=base_url("public/plugin/daterange/daterange.min.js")?>"></script>

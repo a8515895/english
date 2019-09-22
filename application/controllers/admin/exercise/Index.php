@@ -31,7 +31,7 @@ class Index extends CI_Controller{
         $this->load->view('admin/list',$data);
     }
     function loadAdd($action = "",$id = ""){
-        $data['title'] = 'Bài tậps';
+        $data['title'] = 'Bài tập';
         $data['categorys'] = $this->Model->getAllTable('category');
         $data['action'] = 'edit';
         $data['id'] = $id;

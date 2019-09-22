@@ -18,6 +18,10 @@ class Table extends CI_Controller
                 $data=$this->Model->getAllTable($it['href'],$limit,$start);
                 $total = $this->Model->getTotal($it['href']);
                 break;
+            case 'read' :
+                $data=$this->Model->getAllTable($it['href'],$limit,$start,"created_at DESC",["student"=>$this->session->userdata("id")]);
+                $total = $this->Model->getTotal($it['href']);
+                break;
             case 'result' :
                 $data=$this->Model->getAllTable("result_log",$limit,$start,"created_at DESC",["student"=>$this->session->userdata("id")]);
                 $total = $this->Model->getTotal("result_log");
@@ -72,6 +76,15 @@ class Table extends CI_Controller
                         $table[] = $val; 
                     }
                     break;
+                case 'read' :
+                    foreach ($data as $val){
+                        $val['action'] ="
+                            <a href='".base_url()."admin/read?action=edit&id=".$val['id']."'>Detail</a> |
+                            <a onclick='confirmDelete(this)' href='javascript:void(0)' data-href='".base_url()."admin/read/delete/".$val['id']."'>Delete</a>     
+                        ";
+                        $table[] = $val; 
+                    }
+                    break;
                 case 'exercise' :
                     foreach ($data as $val){     
                         $val['active'] = ($val['active'] == 1) ? "Kích hoạt" : "Chưa kích hoạt";
@@ -110,7 +123,7 @@ class Table extends CI_Controller
                     
                     foreach ($data as $val){
                         $val['category'] = $category[$val['category']];
-                        $val['e_name'] .= $this->myfunction->speakEnglish($val['e_name']);
+                        $val['e_name'] .= "(".$val['type'].") ".$this->myfunction->speakEnglish($val['e_name']);
                         $val['action'] ="<a href='".base_url()."edit/".$val['id']."'>Edit</a>";
                         $table[] = $val;        
                     }

@@ -24,7 +24,7 @@
                         </h4>
                     </div>
                     <div class="col-4">
-                        <p><input data-id="<?=$t['id']?>" name="input-<?=$t['id']?>-<?php if(!empty($t['type'])) echo 'vocabulary'; else echo 'pharse' ?>" id="input-vocabulary-<?=$t['id']?>" class="input-vocabulary form-control"></p>
+                        <p><input data-id="<?=$t['id']?>" autocomplete="off" name="input-<?=$t['id']?>-<?php if(!empty($t['type'])) echo 'vocabulary'; else echo 'pharse' ?>" id="input-vocabulary-<?=$t['id']?>" class="input-vocabulary form-control"></p>
                         <p><button id="btn-vocabulary-<?=$t['id']?>" onclick="nextExercise(this)" type="button" class="btn btn-primary">Tiếp tục</button></p>
                     </div>
                 </div>
@@ -85,6 +85,9 @@
             if($(".span-speak-english").length != 0){
                 $(`.test-content[data-stt=${stt}]`).find(".span-speak-english").click();
             }
+            let input = $(`.test-content[data-stt=${stt}]`).find("input")[0];
+            console.log(stt);
+            $(input).focus()
             $(`.test-content[data-stt=${stt}]`).addClass("active");
         }else{
             let html = 
