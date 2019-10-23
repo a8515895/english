@@ -54,6 +54,8 @@ $route['404_override'] = 'home/not_found';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['admin/category'] = 'admin/category/index';
+$route['admin/ajax/category'] = 'admin/category/index/indexAjax';
+$route["admin/category/delete/:num"] = 'admin/category/index/delete/:num';
 
 $route['admin/vocabulary'] = 'admin/vocabulary/index';
 $route['admin/ajax/vocabulary'] = 'admin/vocabulary/index/indexAjax';

@@ -91,7 +91,7 @@ class Index extends CI_Controller{
         }        
     }
     function add(){
-        if(empty($this->input->post('e_name')) || empty($this->input->post('v_name')) || empty($this->input->post('spell'))){
+        if(empty($this->input->post('e_name')) || empty($this->input->post('v_name'))){
             echo json_encode(array("err"=>1,"msg"=> "Điền đầy đủ thông tin"));
             return;
         }

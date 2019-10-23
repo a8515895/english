@@ -15,7 +15,7 @@ class Table extends CI_Controller
         $start = $this->input->get('start');
         switch ($it['href']){
             case 'category' :
-                $data=$this->Model->getAllTable($it['href'],$limit,$start);
+                $data=$this->Model->getAllTable($it['href'],$limit,$start,"created_at DESC",["active"=>1]);
                 $total = $this->Model->getTotal($it['href']);
                 break;
             case 'read' :
@@ -64,6 +64,11 @@ class Table extends CI_Controller
             switch ($it['href']){
                 case 'category' :
                     foreach ($data as $val){
+                        $val['action'] = 
+                        "   
+                            <a href='".base_url()."admin/category?action=edit&id=".$val['id']."'>Edit</a> |
+                            <a onclick='confirmDelete(this)' href='javascript:void(0)' data-href='".base_url()."admin/category/delete/".$val['id']."'>Delete</a>
+                        ";
                         $table[] = $val; 
                     }
                     break;

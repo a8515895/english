@@ -7,15 +7,58 @@ class Index extends CI_Controller{
         $this->load->library('myfunction');
     }
     function index(){
+        $data['href'] = 'category';
+        $data['action'] = $this->input->get('action');
+        $this->load->view('admin/admin',$data);
+    }
+    function indexAjax(){
         $action = $this->input->get('action');
         if($action == 'list'){
             $this->loadTable();
+        }elseif($action == 'add'){
+            $this->loadAdd();
+        }elseif($action == 'edit'){
+            $this->loadAdd("edit");
         }
+    }
+    function delete(){
+        $id = $this->uri->segment(4);
+        $this->Model->delete("category",['id'=>$id]);
     }
     function loadTable(){
         $data['title'] = 'Chủ đề';
         $data['href'] = 'category';
-        $data['header'] = array('Chủ đề','Tiếng Anh','Tiếng Việt');
+        $data['header'] = array('id'=>'Chủ đề','e_name'=>'Tiếng Anh','v_name'=>'Tiếng Việt','action'=>"Action");
         $this->load->view('admin/list',$data);
+    }
+    function loadAdd($action = "add"){
+        $data['title'] = 'Chủ đề';
+        $data['categorys'] = $this->Model->getAllTable('category');
+        $data['action'] = $action;
+        $this->load->view('admin/category/add',$data);
+    }
+    function add(){
+        $action = $this->input->post('action');
+        if(empty($this->input->post('e_name')) || empty($this->input->post('v_name'))){
+            echo json_encode(array("err"=>1,"msg"=> "Điền đầy đủ thông tin"));
+            return;
+        }
+        $arr['e_name'] =strtoupper(trim($this->input->post('e_name')));
+        $arr['v_name'] =strtoupper(trim($this->input->post('v_name')));
+        if($action == 'add'){        
+            if(empty($this->Model->query("category",["where"=>["e_name"=>$arr['e_name']]])) && empty($this->Model->query("category",["where"=>["v_name"=>$arr['v_name']]]))){
+                $this->Model->insert("category",$arr);
+                echo json_encode(array("err"=>0,"msg"=> "Thêm chủ đề thành công"));
+            }else{
+                echo json_encode(array("err"=>1,"msg"=> "Chủ đề này đã tồn tại"));
+            }       
+        }else{
+            if(empty($this->Model->query("category",["where"=>["e_name"=>$arr['e_name']]])) && empty($this->Model->query("category",["where"=>["v_name"=>$arr['v_name']]]))){
+                $this->Model->update("category",$arr);
+                echo json_encode(array("err"=>0,"msg"=> "Thêm chủ đề thành công"));
+            }else{
+                echo json_encode(array("err"=>1,"msg"=> "Chủ đề này đã tồn tại"));
+            }   
+        }
     }
 }

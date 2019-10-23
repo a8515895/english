@@ -17,6 +17,11 @@
                     <i class="fas fa-radiation fa-2x"></i>
                 </a>
             </li>
+            <li data-href="category" data-toggle="tooltip" title="Chủ đề" data-placement="right">
+                <a  class="" href="javascript:void(0)">
+                    <i class="fas fa-layer-group fa-2x"></i>
+                </a>
+            </li>
             <li data-href="lession" data-toggle="tooltip" title="Bài học" data-placement="right">
                 <a  class="" href="javascript:void(0)">
                     <i class="fas fa-address-book fa-2x"></i>
