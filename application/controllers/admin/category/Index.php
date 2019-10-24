@@ -9,16 +9,19 @@ class Index extends CI_Controller{
     function index(){
         $data['href'] = 'category';
         $data['action'] = $this->input->get('action');
+        $data['id'] = $this->input->get('id');
         $this->load->view('admin/admin',$data);
     }
     function indexAjax(){
         $action = $this->input->get('action');
+        echo  "test ".$this->input->get('id');
+        $id = $this->input->get('id');
         if($action == 'list'){
             $this->loadTable();
         }elseif($action == 'add'){
             $this->loadAdd();
         }elseif($action == 'edit'){
-            $this->loadAdd("edit");
+            $this->loadAdd("edit",$id);
         }
     }
     function delete(){
@@ -31,10 +34,11 @@ class Index extends CI_Controller{
         $data['header'] = array('id'=>'Chủ đề','e_name'=>'Tiếng Anh','v_name'=>'Tiếng Việt','action'=>"Action");
         $this->load->view('admin/list',$data);
     }
-    function loadAdd($action = "add"){
+    function loadAdd($action = "add",$id=""){
         $data['title'] = 'Chủ đề';
         $data['categorys'] = $this->Model->getAllTable('category');
         $data['action'] = $action;
+        $data['id'] = $id;
         $this->load->view('admin/category/add',$data);
     }
     function add(){
